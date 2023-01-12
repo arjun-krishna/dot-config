@@ -98,8 +98,8 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- Set highlight on search
 vim.o.hlsearch = false
 
--- Make relative line numbers default
-vim.wo.relativenumber = true
+-- Make line numbers default
+vim.wo.number = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -135,7 +135,6 @@ vim.g.maplocalleader = ' '
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.keymap.set('i', 'jk', '<Esc>', { silent = true }) -- jk maps to Esc in insert mode
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
