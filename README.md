@@ -27,3 +27,10 @@ curl https://sh.rustup.rs -sSf | sh
 ```
 
 - install alacritty from cargo. [https://github.com/alacritty/alacritty/blob/master/INSTALL.md](installation-instructions)
+
+## Terminal Utilities
+
+- [ripgrep](https://github.com/BurntSushi/ripgrep): used by telescope in nvim to ignore files in .gitignore etc.,
+```bash
+sudo apt install ripgrep
+```
