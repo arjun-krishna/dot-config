@@ -28,9 +28,19 @@ curl https://sh.rustup.rs -sSf | sh
 
 - install alacritty from cargo. [https://github.com/alacritty/alacritty/blob/master/INSTALL.md](installation-instructions)
 
+- install tmux from [release-tarball](https://github.com/tmux/tmux) [>3.1 required]. Dependencies:
+```bash
+sudo apt install libncurses-dev libevent-dev
+```
+
 ## Terminal Utilities
 
 - [ripgrep](https://github.com/BurntSushi/ripgrep): used by telescope in nvim to ignore files in .gitignore etc.,
 ```bash
 sudo apt install ripgrep
+```
+
+- xterm
+```bash
+sudo apt install xterm
 ```

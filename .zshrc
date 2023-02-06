@@ -102,3 +102,4 @@ source $ZSH/oh-my-zsh.sh
 #
 # CapsLock <- Ctrl
 setxkbmap -option ctrl:nocaps
+TERM=xterm-256color
