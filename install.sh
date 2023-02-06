@@ -11,5 +11,10 @@ if [ ! -d "$HOME/.config/alacritty" ]; then
 	ln -s $(pwd)/alacritty $HOME/.config/alacritty 
 fi
 
+if [ ! -d "$HOME/.config/tmux" ]; then
+	echo "creating softlink: tmux"
+	ln -s $(pwd)/tmux $HOME/.config/tmux 
+fi
+
 echo "copying .zshrc"
 cp .zshrc $HOME/.zshrc
