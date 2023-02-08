@@ -103,3 +103,13 @@ source $ZSH/oh-my-zsh.sh
 # CapsLock <- Ctrl
 setxkbmap -option ctrl:nocaps
 TERM=xterm-256color
+
+bindkey '^ ' autosuggest-accept
+# ROS if exists
+if [ -f /opt/ros/noetic/setup.zsh ]; then
+	source /opt/ros/noetic/setup.zsh
+	alias cbuild="catkin build --profile release"
+	if [ -f $HOME/catkin_ws/devel_release/setup.zsh ]; then
+		source $HOME/catkin_ws/devel_release/setup.zsh
+	fi
+fi
