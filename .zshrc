@@ -111,6 +111,8 @@ if [ -f /opt/ros/noetic/setup.zsh ]; then
 	alias cbuild="catkin build --profile release"
 	if [ -f $HOME/catkin_ws/devel_release/setup.zsh ]; then
 		source $HOME/catkin_ws/devel_release/setup.zsh
+	elif [ -f $HOME/catkin_ws/devel/setup.zsh ]; then
+		source $HOME/catkin_ws/devel/setup.zsh
 	fi
 fi
 
