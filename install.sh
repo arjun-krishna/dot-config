@@ -22,5 +22,10 @@ else
 	echo "tmux: already linked"
 fi
 
-echo "copying .zshrc"
-cp .zshrc $HOME/.zshrc
+cmp -s .zshrc $HOME/.zshrc
+if [ ! $? -eq 0 ]; then
+	echo "updating .zshrc"
+	cp .zshrc $HOME/.zshrc
+else
+	echo ".zshrc already up-to-date."
+fi
