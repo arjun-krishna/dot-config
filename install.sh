@@ -29,3 +29,10 @@ if [ ! $? -eq 0 ]; then
 else
 	echo ".zshrc already up-to-date."
 fi
+cmp -s .p10k.zsh $HOME/.p10k.zsh
+if [ ! $? -eq 0 ]; then
+	echo "updating p10k configuration"
+	cp .p10k.zsh $HOME/.p10k.zsh
+else
+	echo "p10k already up-to-date."
+fi
