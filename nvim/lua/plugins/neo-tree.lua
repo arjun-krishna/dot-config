@@ -13,9 +13,11 @@ return {
     filesystem = {
       follow_current_file = true,
       hijack_netrw_behavior = "open_current",
-      visible = true,
-      hide_dotfiles = false,
-      hide_gitignored = true,
+      filtered_items = {
+        visible = true,
+        hide_dotfiles = false,
+        hide_gitignored = true,
+      },
     },
   },
 }
