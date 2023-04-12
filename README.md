@@ -34,6 +34,11 @@ curl https://sh.rustup.rs -sSf | sh
 sudo apt install libncurses-dev libevent-dev
 ```
 
+- install [NodeJs](https://nodejs.dev/en/download/)
+```bash
+sudo cp bin/node /usr/bin/
+```
+
 ## Terminal Utilities
 
 - [ripgrep](https://github.com/BurntSushi/ripgrep): used by telescope in nvim to ignore files in .gitignore etc.,

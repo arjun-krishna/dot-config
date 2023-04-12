@@ -124,6 +124,8 @@ if [ -f /opt/ros/noetic/setup.zsh ]; then
 fi
 
 # vi-mode
+bindkey -v
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 bindkey -M viins 'jk' vi-cmd-mode
 MODE_INDICATOR="%F{white}+%f"
 INSERT_MODE_INDICATOR="%F{yellow}+%f"
