@@ -1,4 +1,4 @@
-// appears to require Kitty terminal
+-- appears to require Kitty terminal
 return {
   "edluffy/hologram.nvim",
   config = function()
