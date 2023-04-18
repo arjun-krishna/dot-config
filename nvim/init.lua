@@ -18,6 +18,8 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+vim.opt.clipboard = 'unnamedplus'
+
 require('lazy').setup('plugins')
 
 -- [[ Setting options ]]
