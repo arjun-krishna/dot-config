@@ -34,11 +34,6 @@ curl https://sh.rustup.rs -sSf | sh
 sudo apt install libncurses-dev libevent-dev
 ```
 
-- install [NodeJs](https://nodejs.dev/en/download/)
-```bash
-sudo cp bin/node /usr/bin/
-```
-
 ## Terminal Utilities
 
 - [ripgrep](https://github.com/BurntSushi/ripgrep): used by telescope in nvim to ignore files in .gitignore etc.,
@@ -56,4 +51,26 @@ sudo apt install xterm
 git clone https://github.com/ryanoasis/nerd-fonts.git
 cd nerd-fonts
 ./install.sh FiraCode
+```
+
+## Rust
+
+[docs](https://doc.rust-lang.org/cargo/getting-started/installation.html)
+```bash
+curl https://sh.rustup.rs -sSf | sh
+```
+
+## NVM
+
+-- Need this for CoPilot and other fun LSP stuff :)
+
+[nvm](https://github.com/nvm-sh/nvm)
+node and npm
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+```
+
+```bash
+nvm install 16
+# nvm use 16
 ```
