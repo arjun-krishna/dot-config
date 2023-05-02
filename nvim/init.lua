@@ -102,12 +102,15 @@ require('gitsigns').setup {
 require('telescope').setup {
   defaults = {
     mappings = {
+      n = {
+        ['<C-d>'] = require('telescope.actions').delete_buffer,
+      }, -- n
       i = {
         ['<C-u>'] = false,
-        ['<C-d>'] = false,
-      },
-    },
-  },
+        ['<C-d>'] = require('telescope.actions').delete_buffer,
+      }, -- i
+    }, -- mappings
+  }, -- defaults
 }
 
 -- Enable telescope fzf native, if installed
