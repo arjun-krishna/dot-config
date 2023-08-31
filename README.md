@@ -74,3 +74,15 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 nvm install 16
 # nvm use 16
 ```
+
+## Poetry
+Install https://python-poetry.org/docs/
+```bash
+curl -sSL https://install.python-poetry.org | python3 -
+
+# om-my-zsh additions
+mkdir $ZSH_CUSTOM/plugins/poetry
+poetry completions zsh > $ZSH_CUSTOM/plugins/poetry/_poetry
+```
+
+
