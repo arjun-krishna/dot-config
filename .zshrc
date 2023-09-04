@@ -112,7 +112,7 @@ setxkbmap -option ctrl:nocaps
 TERM=xterm-256color
 
 bindkey '^ ' autosuggest-accept
-# ROS if exists
+# ROS setup
 if [ -f /opt/ros/noetic/setup.zsh ]; then
 	source /opt/ros/noetic/setup.zsh
 	alias cbuild="catkin build --profile release"
@@ -133,10 +133,24 @@ INSERT_MODE_INDICATOR="%F{yellow}+%f"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Paths
-#
-export PATH=$PATH:$HOME/.cargo/bin/:$HOME/.local/bin
+# rust setup
+if [ -d "$HOME/.cargo" ]; then
+	export PATH="$PATH:$HOME/.cargo/bin"
+fi
+
+# add custom bins/programs in .local/bin to sh path
+export PATH="$HOME/.local/bin:$PATH"
+
+# node version manager
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
+# set nvim as default editor
 export EDITOR="nvim"
+
+# PyEnv setup
+if [ -d "$HOME/.pyenv" ]; then
+	export PYENV_ROOT="$HOME/.pyenv"
+	command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+	eval "$(pyenv init -)"
+fi
