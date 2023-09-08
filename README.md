@@ -21,6 +21,13 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 ```
 
 - install nvim. [https://github.com/neovim/neovim/wiki/Building-Neovim](build-from-src)
+```bash
+cd ~
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
+./nvim.appimage
+sudo ln -s ~/nvim.appimage /usr/bin/nvim
+```
 
 - install rust and cargo
 ```bash
@@ -75,14 +82,16 @@ nvm install 16
 # nvm use 16
 ```
 
-## Poetry
-Install https://python-poetry.org/docs/
-```bash
-curl -sSL https://install.python-poetry.org | python3 -
+## Using Mamba
 
-# om-my-zsh additions
-mkdir $ZSH_CUSTOM/plugins/poetry
-poetry completions zsh > $ZSH_CUSTOM/plugins/poetry/_poetry
-```
+Follow mamba [installation guide](https://mamba.readthedocs.io/en/latest/installation/mamba-installation.html)
 
+- It uses the miniforge backend and can be used in sync with conda (have the same setup on the cluster)
+
+# Utilities
+- [nvtop](https://github.com/Syllo/nvtop)
+
+# VSCode
+> I sync my settings with github (so install vscode and have them sync up to be my preferred environment)
+> Fonts I use powerlevel10k recommended Meslos NGF (follow installation [instructions](https://github.com/romkatv/powerlevel10k/blob/master/font.md))
 
