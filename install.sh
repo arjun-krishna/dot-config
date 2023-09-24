@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 echo "installing .config ..."
 
 if [ ! -d "$HOME/.config/nvim" ]; then
@@ -8,18 +8,18 @@ else
 	echo "nvim: already linked"
 fi
 
-if [ ! -d "$HOME/.config/alacritty" ]; then
-	echo "alacritty: creating softlink"
-	ln -s $(pwd)/alacritty $HOME/.config/alacritty 
-else
-	echo "alacritty: already linked"
-fi
+#if [ ! -d "$HOME/.config/tmux" ]; then
+#	echo "tmux: creating softlink"
+#	ln -s $(pwd)/tmux $HOME/.config/tmux 
+#else
+#	echo "tmux: already linked"
+#fi
 
-if [ ! -d "$HOME/.config/tmux" ]; then
-	echo "tmux: creating softlink"
-	ln -s $(pwd)/tmux $HOME/.config/tmux 
+if [ ! -d "$HOME/.config/kitty" ]; then
+	echo "kitty: creating softlink"
+	ln -s $(pwd)/kitty $HOME/.config/kitty
 else
-	echo "tmux: already linked"
+	echo "kitty: already linked"
 fi
 
 cmp -s .zshrc $HOME/.zshrc

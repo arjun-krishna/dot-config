@@ -85,4 +85,8 @@ mkdir $ZSH_CUSTOM/plugins/poetry
 poetry completions zsh > $ZSH_CUSTOM/plugins/poetry/_poetry
 ```
 
-
+# MacOS
+```bash
+brew install tree-sitter
+```
+* Had to install MesloLGS font for p10k

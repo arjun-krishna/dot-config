@@ -137,9 +137,10 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim', 'markdown', 'org'},
-
-  highlight = { enable = true, additional_vim_regex_highlighting = {'org'}},
+  auto_install = true,
+  sync_install = true,
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'vim', 'markdown', 'bash'},
+  highlight = { enable = true }, -- additional_vim_regex_highlighting = false },
   indent = { enable = true, disable = { 'python' } },
   incremental_selection = {
     enable = true,
@@ -184,18 +185,19 @@ require('nvim-treesitter.configs').setup {
         ['[]'] = '@class.outer',
       },
     },
-    swap = {
-      enable = true,
-      swap_next = {
-        ['<leader>a'] = '@parameter.inner',
-      },
-      swap_previous = {
-        ['<leader>A'] = '@parameter.inner',
-      },
-    },
-  },
+   swap = {
+     enable = true,
+     swap_next = {
+       ['<leader>a'] = '@parameter.inner',
+     },
+     swap_previous = {
+       ['<leader>A'] = '@parameter.inner',
+     },
+   },
+ },
 }
 
+-- 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
