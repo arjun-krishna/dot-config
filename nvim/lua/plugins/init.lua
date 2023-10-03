@@ -9,8 +9,8 @@ return {
       -- Useful status updates for LSP
       {
         'j-hui/fidget.nvim',
-        tag = "legacy",
-	event = "LspAttach",
+        tag = 'legacy',
+	event = 'LspAttach',
       },
 
       -- Additional lua configuration, makes nvim stuff amazing
@@ -40,7 +40,7 @@ return {
 
   'navarasu/onedark.nvim', -- Theme inspired by Atom
   'lukas-reineke/indent-blankline.nvim', -- Add indentation guides even on blank lines
-  'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines
+  'numToStr/Comment.nvim', -- 'gc' to comment visual regions/lines
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   'rhysd/clever-f.vim', -- f,F,t,T bindings expanded (no need to use ;)

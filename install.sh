@@ -36,3 +36,17 @@ if [ ! $? -eq 0 ]; then
 else
 	echo "p10k already up-to-date."
 fi
+
+cmp -s vim/.vimrc $HOME/.vimrc
+if [ ! $? -eq 0 ]; then
+	echo "updating .vimrc"
+	cp vim/.vimrc $HOME/.vimrc
+else
+	echo ".vimrc already up-to-date."
+fi
+if [ ! -d "$HOME/.vim" ]; then
+	echo "vim: creating softlink"
+	ln -s $(pwd)/vim/.vim $HOME/.vim
+else
+	echo "vim: already linked"
+fi
