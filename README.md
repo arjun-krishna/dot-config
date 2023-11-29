@@ -90,3 +90,9 @@ poetry completions zsh > $ZSH_CUSTOM/plugins/poetry/_poetry
 brew install tree-sitter
 ```
 * Had to install MesloLGS font for p10k
+
+# VSCode
+```bash
+# disable press&hold for vscode
+defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
+```
