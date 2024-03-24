@@ -127,20 +127,35 @@ fi
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/$USER/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/arjunk/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/$USER/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "/home/$USER/miniforge3/etc/profile.d/conda.sh"
+    if [ -f "/home/arjunk/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/home/arjunk/miniforge3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/$USER/miniforge3/bin:$PATH"
+        export PATH="/home/arjunk/miniforge3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 
-if [ -f "/home/$USER/miniforge3/etc/profile.d/mamba.sh" ]; then
-    . "/home/$USER/miniforge3/etc/profile.d/mamba.sh"
+if [ -f "/home/arjunk/miniforge3/etc/profile.d/mamba.sh" ]; then
+    . "/home/arjunk/miniforge3/etc/profile.d/mamba.sh"
 fi
 # <<< conda initialize <<<
+
+export COPPELIASIM_ROOT=/home/arjunk/software/CoppeliaSim_Edu_V4_1_0_Ubuntu20_04
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$COPPELIASIM_ROOT
+export QT_QPA_PLATFORM_PLUGIN_PATH=$COPPELIASIM_ROOT
+
+export ISAACSIM_PATH=/home/arjunk/.local/share/ov/pkg/isaac_sim-2023.1.1
+export ISAACSIM_PYTHON_EXE=${ISAACSIM_PATH}/python.sh
+alias orbit=/home/arjunk/workspace/orbit/orbit.sh
+
+alias pyd=python -m pdb -c continue
+export DISPLAY=:1
+. "$HOME/.cargo/env"
+
+# mujoco200
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/arjunk/.mujoco/mujoco200/bin
 

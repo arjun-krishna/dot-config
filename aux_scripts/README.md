@@ -1,0 +1,2 @@
+- SSH setup [disable password auth](https://www.cyberciti.biz/faq/how-to-disable-ssh-password-login-on-linux/)
+- Configuring static IP [doc](https://www.freecodecamp.org/news/setting-a-static-ip-in-ubuntu-linux-ip-address-tutorial/)
