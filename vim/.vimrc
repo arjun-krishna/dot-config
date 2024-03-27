@@ -13,8 +13,12 @@ filetype indent on
 " Syntax highlight
 syntax on
 
+" spell check
+set spell"
+set spelllang=en_us
+
 " Line nos
-set number
+set relativenumber
 
 " Highlight cursor line
 set cursorline
@@ -47,18 +51,98 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 colorscheme molokai
 
 " PLUGINS ---------------------------------------------------------------- {{{
+call plug#begin()
+Plug 'tpope/vim-sensible'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'preservim/nerdcommenter'
+Plug 'lervag/vimtex'
+Plug 'matze/vim-tex-fold'
+call plug#end()
 
-" Plugin code goes here.
+" UltiSnips {{{
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsListSnipepts="<c-tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsEditSplit="vertical"
+" }}}
+"
+" VimTex {{{
+let g:tex_flavor = "latex"
+let g:vimtex_view_method = 'sioyek'
+let g:vimtex_compiler_latexmk = {
+        \ 'executable' : 'latexmk',
+        \ 'options' : [
+        \   '-lualatex',
+        \   '-file-line-error',
+        \   '-synctex=1',
+        \   '-interaction=nonstopmode',
+        \ ],
+        \}
+let g:tex_fold_enabled = 0
+let g:vimtex_fold_enabled = 1
+let g:vimtex_fold_types = {
+        \ 'preamble' : {'enabled':1},
+        \ 'comments' : {'enabled' : 1},
+        \ 'envs' : {
+        \   'blacklist' : [],
+        \   'whitelist' : [],
+        \ },
+        \ 'env_options' : {},
+        \ 'markers' : {},
+        \ 'sections' : {
+        \   'parse_levels' : 1,
+        \   'sections' : [
+        \     'part',
+        \     'chapter',
+        \     'section',
+        \     'subsection',
+        \     'subsubsection',
+        \   ],
+        \   'parts' : [
+        \     'appendix',
+        \     'frontmatter',
+        \     'mainmatter',
+        \     'backmatter',
+        \   ],
+        \ }
+        \}
+let g:vimtex_fold_manual = 1
+
+" NerdComment{{{
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters left instead of code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+" Allow commenting and inverting empty lines (when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
 
 " }}}
 
+" }}}
 
 " MAPPINGS --------------------------------------------------------------- {{{
 
 " Mappings code goes here.
 inoremap jk <esc>
 let mapleader = ","
-nnoremap <leader>\ :nohlsearch<CR>
+nnoremap <leader><leader> :nohlsearch<CR>
 
 " Press the space bar to type the : character in command mode.
 nnoremap <space> :
