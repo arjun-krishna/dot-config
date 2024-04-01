@@ -14,11 +14,18 @@ filetype indent on
 syntax on
 
 " spell check
-set spell"
+set spell
 set spelllang=en_us
 
 " Line nos
+set number
 set relativenumber
+
+" Text wrap
+set textwidth=0
+set wrapmargin=0
+set wrap
+set linebreak
 
 " Highlight cursor line
 set cursorline
@@ -31,7 +38,6 @@ set expandtab
 set nobackup
 set scrolloff=10
 
-set nowrap
 set incsearch
 set ignorecase
 set smartcase
@@ -53,6 +59,7 @@ colorscheme molokai
 " PLUGINS ---------------------------------------------------------------- {{{
 call plug#begin()
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-dispatch'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'preservim/nerdcommenter'
@@ -71,15 +78,17 @@ let g:UltiSnipsEditSplit="vertical"
 " VimTex {{{
 let g:tex_flavor = "latex"
 let g:vimtex_view_method = 'sioyek'
-let g:vimtex_compiler_latexmk = {
-        \ 'executable' : 'latexmk',
-        \ 'options' : [
-        \   '-lualatex',
-        \   '-file-line-error',
-        \   '-synctex=1',
-        \   '-interaction=nonstopmode',
-        \ ],
-        \}
+" let g:vimtex_compiler_latexmk = {
+"         \ 'executable' : 'latexmk',
+"         \ 'options' : [
+"         \   '-lualatex',
+"         \   '-file-line-error',
+"         \   '-synctex=1',
+"         \   '-interaction=nonstopmode',
+"         \ ],
+"         \}
+let maplocalleader=","
+
 let g:tex_fold_enabled = 0
 let g:vimtex_fold_enabled = 1
 let g:vimtex_fold_types = {
