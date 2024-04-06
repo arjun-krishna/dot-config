@@ -8,12 +8,12 @@ else
 	echo "nvim: already linked"
 fi
 
-#if [ ! -d "$HOME/.config/tmux" ]; then
-#	echo "tmux: creating softlink"
-#	ln -s $(pwd)/tmux $HOME/.config/tmux 
-#else
-#	echo "tmux: already linked"
-#fi
+if [ ! -d "$HOME/.config/tmux" ]; then
+	echo "tmux: creating softlink"
+	ln -s $(pwd)/tmux $HOME/.config/tmux 
+else
+	echo "tmux: already linked"
+fi
 
 if [ ! -d "$HOME/.config/kitty" ]; then
 	echo "kitty: creating softlink"
