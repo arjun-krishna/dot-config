@@ -654,7 +654,20 @@ require("lazy").setup({
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		opts = {
-			ensure_installed = { "bash", "c", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
+			ensure_installed = {
+				"bash",
+				"c",
+				"html",
+				"lua",
+				"luadoc",
+				"markdown",
+				"vim",
+				"vimdoc",
+				"latex",
+				"python",
+				"yaml",
+				"toml",
+			},
 			-- Autoinstall languages that are not installed
 			auto_install = true,
 			highlight = {
@@ -721,7 +734,7 @@ require("lazy").setup({
 		},
 	},
 })
-
+require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/LuaSnip/" })
 -- [[ Basic Keymaps ]] -- TODO: revisit
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -733,4 +746,3 @@ vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-
