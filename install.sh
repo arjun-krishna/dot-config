@@ -10,9 +10,18 @@ fi
 
 if [ ! -d "$HOME/.config/alacritty" ]; then
 	echo "alacritty: creating softlink"
-	ln -s $(pwd)/alacritty $HOME/.config/alacritty 
+    ln -s $(pwd)/alacritty $HOME/.config/alacritty 
 else
 	echo "alacritty: already linked"
+fi
+
+rm -f $(pwd)/alacritty/alacritty.toml
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "alacritty: osx"
+    ln -s $(pwd)/alacritty/osx.toml $(pwd)/alacritty/alacritty.toml
+else
+    echo "alacritty: linux"
+    ln -s $(pwd)/alacritty/linux.toml $(pwd)/alacritty/alacritty.toml
 fi
 
 if [ ! -d "$HOME/.config/tmux" ]; then
