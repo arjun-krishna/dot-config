@@ -1,6 +1,12 @@
 # dot-config
 personal configuration files
 
+## Submodule initialize
+Dependencies: tmux-plugins
+```bash
+git submodule update --init --recursive
+```
+
 ## Dependencies
 
 - install zsh

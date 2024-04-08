@@ -60,3 +60,6 @@ if [[ $(uname) == "Darwin" ]]; then
 else
 	source "$HOME/.zshrc.custom/linux.zsh"
 fi
+
+# alias
+alias pyd=python -m pdb -c continue
