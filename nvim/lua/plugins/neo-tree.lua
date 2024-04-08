@@ -1,12 +1,13 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
   cmd = "Neotree", -- Lazy loads plugin
-  branch = "v2.x",
+  branch = "v3.x",
   keys = {
     { "<leader>ft", "<cmd>Neotree toggle<cr>", desc = "NeoTree" },
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
+    "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
     "MunifTanjim/nui.nvim",
   },
   config = { -- Lazy param load
