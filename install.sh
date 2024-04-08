@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/env bash
 echo "installing .config ..."
 
 if [ ! -d "$HOME/.config/nvim" ]; then
@@ -22,6 +22,12 @@ else
 	echo "tmux: already linked"
 fi
 
+if [ ! -d "$HOME/.zshrc.custom" ]; then
+	echo "creating .zshrc.custom"
+	ln -s $(pwd)/.zshrc.custom $HOME/.zshrc.custom
+else
+	echo ".zshrc.custom already exists."
+fi
 cmp -s .zshrc $HOME/.zshrc
 if [ ! $? -eq 0 ]; then
 	echo "updating .zshrc"
@@ -29,10 +35,31 @@ if [ ! $? -eq 0 ]; then
 else
 	echo ".zshrc already up-to-date."
 fi
+cmp -s .zprofile $HOME/.zprofile
+if [ ! $? -eq 0 ]; then
+	echo "updating .zprofile"
+	cp .zprofile $HOME/.zprofile
+else
+	echo ".zprofile already up-to-date."
+fi
 cmp -s .p10k.zsh $HOME/.p10k.zsh
 if [ ! $? -eq 0 ]; then
 	echo "updating p10k configuration"
 	cp .p10k.zsh $HOME/.p10k.zsh
 else
 	echo "p10k already up-to-date."
+fi
+
+cmp -s vim/.vimrc $HOME/.vimrc
+if [ ! $? -eq 0 ]; then
+	echo "updating .vimrc"
+	cp vim/.vimrc $HOME/.vimrc
+else
+	echo ".vimrc already up-to-date."
+fi
+if [ ! -d "$HOME/.vim" ]; then
+	echo "vim: creating softlink"
+	ln -s $(pwd)/vim/.vim $HOME/.vim
+else
+	echo "vim: already linked"
 fi
