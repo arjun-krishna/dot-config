@@ -6,6 +6,8 @@ if [ -v $HOMEBREW_PREFIX ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+export PATH="$PATH:/Library/TeX/texbin"
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/Users/akrishna/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
