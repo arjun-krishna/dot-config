@@ -11,7 +11,7 @@ vim.g.have_nerd_font = true
 vim.opt.clipboard = "unnamedplus"
 
 -- [[ Setting options ]]
-vim.opt.shell = "/usr/bin/zsh"
+vim.opt.shell = "zsh"
 
 -- Set highlight on search
 vim.opt.hlsearch = true
