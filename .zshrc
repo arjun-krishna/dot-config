@@ -20,7 +20,7 @@ DISABLE_AUTO_TITLE="false"
 ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
-plugins=(git vi-mode zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git vi-mode zsh-syntax-highlighting zsh-autosuggestions fzf)
 
 source $ZSH/oh-my-zsh.sh
 # vi-mode

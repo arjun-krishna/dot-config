@@ -101,3 +101,8 @@ Follow mamba [installation guide](https://mamba.readthedocs.io/en/latest/install
 > I sync my settings with github (so install vscode and have them sync up to be my preferred environment)
 > Fonts I use powerlevel10k recommended Meslos NGF (follow installation [instructions](https://github.com/romkatv/powerlevel10k/blob/master/font.md))
 
+## TreeSitter
+
+```bash
+npm install tree-sitter-cli -g
+```
