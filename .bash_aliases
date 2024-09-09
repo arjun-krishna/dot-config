@@ -5,8 +5,8 @@ move_job() {
     local jobid=$1
     local queue=$2
     local valid_queue=("l" "m" "h")
-    if [[ ! "${valid_queue[@]} " =~ " $queue " ]]; then
-        echo "invalid queue target. valid options are: ${valid_queue[*]}"
+    if [[ ! " ${valid_queue[@]} " =~ " $queue " ]]; then
+        echo "invalid queue target: $queue. valid options are: ${valid_queue[*]}"
         return 1
     fi
     if [ "$queue" == "l" ]; then
@@ -25,3 +25,6 @@ sline() {
     local jobid=$1
     sacct -j $jobid -o submitline -P
 }
+
+alias ma="mamba activate"
+alias tb="tensorboard --logdir . --port"
