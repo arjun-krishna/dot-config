@@ -29,3 +29,5 @@ if [ -f "/home/$USER/miniforge3/etc/profile.d/mamba.sh" ]; then
     . "/home/$USER/miniforge3/etc/profile.d/mamba.sh"
 fi
 # <<< conda initialize <<<
+#
+export DISPLAY=:1
