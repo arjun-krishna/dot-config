@@ -64,3 +64,7 @@ fi
 # alias
 alias pyd="python -m pdb -c continue "
 alias ca="mamba activate "
+tb() {
+    local port="${1:-8000}"
+    tensorboard --logdir . --port $port
+}
