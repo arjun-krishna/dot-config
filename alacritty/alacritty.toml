@@ -1,13 +1,11 @@
 [window]
-
+title = "Terminal"
+startup_mode = "Maximized"
 opacity = 0.95
-
 padding.x = 0
 padding.y = 0
-
 decorations = "Full"
 decorations_theme_variant = "Dark"
-title = "Terminal"
 dynamic_title = false
 
 [font]
