@@ -1,2 +1,4 @@
 vim/.vim/plugged/*
 vim/.vim/.netrwhist
+
+nvim/*.json
