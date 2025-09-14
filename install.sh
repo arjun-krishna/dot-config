@@ -59,7 +59,7 @@ else
 fi
 
 update_config zshrc .zshrc $HOME/.zshrc
-update_config zshrc_custom .zshrc.custom $HOME/.zshrc.custom
+link_config zshrc_custom $(pwd)/.zshrc.custom $HOME/.zshrc.custom
 update_config zprofile .zprofile $HOME/.zprofile
 update_config p10k .p10k.zsh $HOME/.p10k.zsh
 
