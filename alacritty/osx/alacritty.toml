@@ -1,0 +1,42 @@
+[env]
+TERM = "screen-color256"
+
+[window]
+title = "Terminal"
+startup_mode = "Maximized"
+opacity = 0.95
+padding.x = 0
+padding.y = 0
+decorations = "Full"
+decorations_theme_variant = "Dark"
+dynamic_title = false
+
+[font]
+normal = { family = "MesloLGS NF", style = "Regular" }
+bold = { family = "MesloLGS NF", style = "Bold" }
+italic = { family = "MesloLGS NF", style = "Italic" }
+bold_italic = { family = "MesloLGS NF", style = "Bold Italic" }
+size = 13
+glyph_offset = { x = 0, y = 0}
+offset = { x = 0, y = 0}
+builtin_box_drawing = true
+
+[bell]
+animation = "EaseOutQuint"
+duration = 200
+color = "#555555"
+
+[terminal]
+osc52 = "CopyPaste"
+
+[mouse]
+hide_when_typing = true
+bindings = [
+    { mouse = "Right", mods = "Control", action = "Paste" },
+    { mouse = "Left", mods = "Control", action = "Copy" },
+]
+
+[keyboard]
+bindings = [
+    { key = "N", mods = "Control|Shift", action = "CreateNewWindow" },
+]
