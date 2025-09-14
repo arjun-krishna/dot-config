@@ -54,6 +54,11 @@ sudo apt install libncurses-dev libevent-dev
 sudo apt install ripgrep
 ```
 
+- fzf
+```bash
+brew install fzf
+```
+
 - xterm
 ```bash
 sudo apt install xterm
@@ -64,6 +69,8 @@ sudo apt install xterm
 git clone https://github.com/ryanoasis/nerd-fonts.git
 cd nerd-fonts
 ./install.sh FiraCode
+# (OSX) brew
+brew install font-fira-code-nerd-font
 ```
 
 ## Rust
