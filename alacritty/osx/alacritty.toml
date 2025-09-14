@@ -12,7 +12,6 @@ decorations_theme_variant = "Dark"
 dynamic_title = false
 
 [font]
-# family = "FiraCode Nerd Font"
 # normal = { family = "MesloLGS NF", style = "Regular" }
 # bold = { family = "MesloLGS NF", style = "Bold" }
 # italic = { family = "MesloLGS NF", style = "Italic" }

@@ -1,4 +1,7 @@
 #!/bin/bash
+## Assumed Dependencies
+# - git
+# - awk
 
 ## SETUP DIRECTORIES
 DEPS_DIR=$(pwd)/deps
@@ -71,6 +74,7 @@ function update_link() {
     fi
 }
 
+# MACOS setup
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # neovim install
     dl_git "neovim/neovim" "nvim-macos-arm64.tar.gz"
