@@ -19,6 +19,36 @@ if [ ! -e $CACHE_VERSIONS ]; then
     touch $CACHE_VERSIONS
 fi
 
+function git_tag() {
+    local repo="$1"
+    if [ -z "$repo" ]; then
+        echo "Usage: git_tag <repository>"
+        return 1
+    fi
+    VERSION=$(git -c 'versionsort.suffix=-' ls-remote --tags --sort='v:refname' https://github.com/$repo \
+      | awk '{print $2}' \
+      | grep -E 'refs/tags/v?[0-9]+\.[0-9]+\.[0-9]+$' \
+      | sed -E 's|refs/tags/v?||' \
+      | tail -n1)
+    echo "(info) git:$repo latest version -> v$VERSION"
+    return 0
+}
+
+function check_cache() {
+    local repo="$1"
+    local version="$2"
+    local cached_version=$(grep "^git:$repo:" $CACHE_VERSIONS | awk -F: '{print $3}')
+    if [ -n "$cached_version" ] && [ "$cached_version" == "$version" ]; then
+        echo "(info) git:$repo is already up-to-date (v$version)."
+        return 0
+    else
+        sed -i "/^git:$repo:/d" "$CACHE_VERSIONS"
+        echo "(info) added git:$repo:$version to cache."
+        echo "git:$repo:$version" >> $CACHE_VERSIONS
+        return 1
+    fi
+}
+
 function dl_git() {
     local repo="$1"
     local file="$2"
@@ -27,15 +57,11 @@ function dl_git() {
         return 1
     fi
     DL_PATH=""
-    version=$(git -c 'versionsort.suffix=-' ls-remote --tags --sort='v:refname' https://github.com/$repo | tail -n1 | awk '{ if (match($2, /[0-9]+(\.[0-9]+)*/)) print substr($2, RSTART, RLENGTH) }')
-    echo "(info) git:$repo:$version"
-    cached_version=$(grep "^git:$repo:" $CACHE_VERSIONS | awk -F: '{print $3}')
-    if [ -n "$cached_version" ] && [ "$cached_version" == "$version" ]; then
-        echo "(info) git:$repo is already up-to-date."
-        return 0
-    else
-        echo "(info) updating git:$repo to version $version"
-        echo "git:$repo:$version" >> $CACHE_VERSIONS
+    git_tag $repo
+    local version=$VERSION
+    check_cache $repo $version
+    if [ $? -ne 0 ]; then
+        echo "(info) updating git:$repo to v$version"
         local dl_url="https://github.com/$repo/releases/download/v$version/$file"
         DL_PATH="/tmp/$file"
         curl -L $dl_url -o $DL_PATH
@@ -45,6 +71,30 @@ function dl_git() {
             return 1
         fi
     fi
+    return 0
+}
+
+function install_dmg() {
+    local dmg_path="$1"
+    local dmg="$(basename "$dmg_path" .dmg)"
+    echo "(info) mounting $dmg"
+    hdiutil mount $dmg_path -noverify -nobrowse -noautoopen
+    # Find the application within the mounted volume and copy it to Applications
+    local app_path=$(find /Volumes/ -name "*.app" -maxdepth 2 | head -n 1)
+    if [[ -n "$app_path" ]]; then
+        local app_name=$(basename "$app_path" .app)
+        echo "(info) copying $app_name to /Applications/"
+        sudo rsync -av "$app_path" /Applications/
+        echo "(info) changing permissions on $app_name"
+        sudo chown -R root:wheel "/Applications/$app_name.app"
+        sudo chmod -R 755 "/Applications/$app_name.app"
+    else
+        echo "(warning) no .app found in the DMG, manual installation may be required."
+    fi
+    echo "(info) unmounting $dmg"
+    hdiutil unmount /Volumes/"$dmg"*
+    echo "(info) clean up dmg file"
+    rm -rf $dmg_path
 }
 
 function update_link() {
@@ -102,4 +152,22 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
             echo "(info) $pkg is already installed"
         fi
     done
+    
+    # alacritty
+    REPO="alacritty/alacritty"
+    git_tag $REPO
+    check_cache $REPO $VERSION
+    if [ $? -ne 0 ]; then
+        echo "(info) updating git:$REPO to v$VERSION"
+        DL_URL="https://github.com/$REPO/releases/download/v$VERSION/Alacritty-v$VERSION.dmg"
+        DMG_PATH="/tmp/Alacritty.dmg"
+        curl -Lo $DMG_PATH $DL_URL
+        if [ $? -ne 0 ]; then
+            echo "(error) failed to download $DL_URL"
+            exit 1
+        else
+            install_dmg $DMG_PATH
+            # update_link alacritty /Applications/Alacritty.app/Contents/MacOS/alacritty $HOME/.local/bin/alacritty
+        fi
+    fi
 fi
