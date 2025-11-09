@@ -152,7 +152,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
             echo "(info) $pkg is already installed"
         fi
     done
-    
+
     # alacritty
     REPO="alacritty/alacritty"
     git_tag $REPO
@@ -169,5 +169,22 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
             install_dmg $DMG_PATH
             # update_link alacritty /Applications/Alacritty.app/Contents/MacOS/alacritty $HOME/.local/bin/alacritty
         fi
+    fi
+fi
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    # neovim install
+    dl_git "neovim/neovim" "nvim-linux-x86_64.appimage"
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+    if [ -n "$DL_PATH" ]; then
+        echo "(info) extracted $DL_PATH to $DEPS_DIR"
+        if [ -d $DEPS_DIR/nvim ]; then
+            rm -rf $DEPS_DIR/nvim
+        fi
+        mkdir -p $DEPS_DIR/nvim
+        mv $DL_PATH $DEPS_DIR/nvim/nvim.appimage
+        chmod u+x $DEPS_DIR/nvim/nvim.appimage
+        update_link nvim $DEPS_DIR/nvim/nvim.appimage $HOME/.local/bin/nvim
     fi
 fi
