@@ -1,3 +1,4 @@
-require('lekha.remap')
+require('lekha.setting')
+require('lekha.keymap')
 require('lekha.autocmd')
 require('lekha.lazy')
