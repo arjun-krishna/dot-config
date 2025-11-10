@@ -42,7 +42,8 @@ function check_cache() {
         echo "(info) git:$repo is already up-to-date (v$version)."
         return 0
     else
-        sed -i "/^git:$repo:/d" "$CACHE_VERSIONS"
+        local escaped_repo=$(printf '%s\n' "$repo" | sed 's/[.[\*^$/]/\\&/g')
+        sed -i '' "/^git:$escaped_repo:/d" "$CACHE_VERSIONS"
         echo "(info) added git:$repo:$version to cache."
         echo "git:$repo:$version" >> $CACHE_VERSIONS
         return 1
@@ -64,6 +65,31 @@ function dl_git() {
         echo "(info) updating git:$repo to v$version"
         local dl_url="https://github.com/$repo/releases/download/v$version/$file"
         DL_PATH="/tmp/$file"
+        curl -L $dl_url -o $DL_PATH
+        if [ $? -ne 0 ]; then
+            echo "(error) failed to download $dl_url"
+            unset DL_PATH
+            return 1
+        fi
+    fi
+    return 0
+}
+
+function dl_git_file() {
+    local repo="$1"
+    local file="$2"
+    if [ -z "$repo" ] || [ -z "$file" ]; then
+        echo "Usage: dl_git_file <repository> <file>"
+        return 1
+    fi
+    DL_PATH=""
+    git_tag $repo
+    local version=$VERSION
+    check_cache $repo $version
+    if [ $? -ne 0 ]; then
+        echo "(info) updating git:$repo to v$version"
+        local dl_url="https://raw.githubusercontent.com/$repo/v$version/$file"
+        DL_PATH="/tmp/_dgf_$file"
         curl -L $dl_url -o $DL_PATH
         if [ $? -ne 0 ]; then
             echo "(error) failed to download $dl_url"
@@ -142,7 +168,20 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         rm -f $DL_PATH
         update_link nvim $DEPS_DIR/nvim/bin/nvim $HOME/.local/bin/nvim
     fi
-
+    # npm/node installation
+    dl_git_file "nvm-sh/nvm" "install.sh"
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+    if [ -n "$DL_PATH" ]; then
+        echo "(info) downloaded $DL_PATH"
+        xattr -c $DL_PATH
+        bash $DL_PATH
+        source "$HOME/.nvm/nvm.sh"
+        nvm install 24
+        echo "node version:"
+        node -v | echo
+    fi
     HOMEBREW_PKGS=(ripgrep fzf font-fira-code-nerd-font)
     for pkg in "${HOMEBREW_PKGS[@]}"; do
         if [ ! brew list --versions $pkg &> /dev/null ] || [ ! brew list --versions --cask $pkg &> /dev/null ]; then
@@ -186,5 +225,20 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         mv $DL_PATH $DEPS_DIR/nvim/nvim.appimage
         chmod u+x $DEPS_DIR/nvim/nvim.appimage
         update_link nvim $DEPS_DIR/nvim/nvim.appimage $HOME/.local/bin/nvim
+    fi
+
+    # npm/node installation
+    dl_git_file "nvm-sh/nvm" "install.sh"
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+    if [ -n "$DL_PATH" ]; then
+        echo "(info) downloaded $DL_PATH"
+        xattr -c $DL_PATH
+        bash $DL_PATH
+        source "$HOME/.nvm/nvm.sh"
+        nvm install 24
+        echo "node version:"
+        node -v | echo
     fi
 fi
