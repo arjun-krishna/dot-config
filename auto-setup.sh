@@ -179,8 +179,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         bash $DL_PATH
         source "$HOME/.nvm/nvm.sh"
         nvm install 24
-        echo "node version:"
-        node -v | echo
+        nvm alias default node # upgrade default
+        node -v
     fi
     HOMEBREW_PKGS=(ripgrep fzf font-fira-code-nerd-font)
     for pkg in "${HOMEBREW_PKGS[@]}"; do
@@ -238,7 +238,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         bash $DL_PATH
         source "$HOME/.nvm/nvm.sh"
         nvm install 24
-        echo "node version:"
-        node -v | echo
+        nvm alias default node # upgrade default
+        node -v
     fi
 fi
