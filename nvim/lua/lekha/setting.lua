@@ -30,6 +30,10 @@ vim.o.cursorline = true
 vim.o.confirm = true
 
 vim.cmd("filetype plugin indent on")
+vim.cmd("syntax on")
+-- folding on startup
+vim.opt.foldenable = false
+vim.opt.foldlevel = 20
 -- vimtex options
 vim.g.vimtex_syntax_enabled = 0
 vim.g.vimtex_compiler_method = 'latexmk'

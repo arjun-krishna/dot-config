@@ -16,3 +16,17 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   desc = "Remove trailing whitespace on save",
 })
 
+vim.api.nvim_create_autocmd({ "FileType" }, {
+    desc = 'use treesitter fold when parser exists',
+    callback = function()
+        -- check if treesitter has parser
+        if require('nvim-treesitter.parsers').has_parser() then
+            -- use treesitter folding
+            vim.opt.foldmethod = "expr"
+            vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+        else
+            -- use alt foldmethod
+            vim.opt.foldmethod = "syntax"
+        end
+    end,
+})

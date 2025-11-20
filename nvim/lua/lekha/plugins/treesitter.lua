@@ -24,10 +24,14 @@ return {
           auto_install = true,
 
           -- Enable syntax highlighting
-          highlight = { enable = true },
+          highlight = {
+                enable = true,
+                additional_vim_regex_highlighting = false,
+          },
 
           -- Enable indentation based on treesitter
           indent = { enable = true },
         }
+
     end,
 }
