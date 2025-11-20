@@ -41,3 +41,5 @@ vim.keymap.set("n", "<C-b>", "<C-b>zz")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "J", "mzJ`z")
+
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Show [E]rrors" })
