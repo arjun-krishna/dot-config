@@ -7,6 +7,7 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.opt.tabstop = 4       -- number of spaces a <Tab> counts for
 vim.opt.shiftwidth = 4    -- number of spaces used for autoindent
 vim.opt.expandtab = true  -- convert tabs to spaces
+vim.opt.clipboard = 'unnamedplus'  -- use system clipboard
 
 vim.o.termguicolors = true
 vim.o.background = "dark"

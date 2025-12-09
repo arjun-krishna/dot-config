@@ -31,6 +31,8 @@ return {
 
           -- Enable indentation based on treesitter
           indent = { enable = true },
+
+          ignore_install = { 'org' },
         }
 
     end,

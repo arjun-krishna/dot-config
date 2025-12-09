@@ -64,6 +64,11 @@ brew install fzf
 sudo apt install xterm
 ```
 
+- install xclip
+```bash
+sudo apt install xclip
+```
+
 - NerdFonts
 ```bash
 git clone https://github.com/ryanoasis/nerd-fonts.git
