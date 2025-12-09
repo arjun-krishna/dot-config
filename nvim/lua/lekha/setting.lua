@@ -9,6 +9,7 @@ vim.opt.shiftwidth = 4    -- number of spaces used for autoindent
 vim.opt.expandtab = true  -- convert tabs to spaces
 vim.opt.clipboard = 'unnamedplus'  -- use system clipboard
 
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 vim.o.termguicolors = true
 vim.o.background = "dark"
 vim.o.number = true
@@ -29,6 +30,7 @@ vim.o.list = true
 vim.o.inccommand = 'split'
 vim.o.cursorline = true
 vim.o.confirm = true
+vim.o.autoread = true
 
 vim.cmd("filetype plugin indent on")
 vim.cmd("syntax on")

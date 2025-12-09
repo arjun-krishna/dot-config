@@ -30,3 +30,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
         end
     end,
 })
+vim.api.nvim_create_autocmd({"FocusGained", "BufEnter"}, {
+    command = "checktime",
+    pattern = "*",
+})
