@@ -3,6 +3,8 @@ vim.keymap.set("i", "jk", "<Esc>", { silent = true }) -- jk maps to Esc in inser
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+vim.keymap.set("n", "<leader>x", "<cmd>:q<cr>", { desc = "close buffer" })
+
 
 vim.keymap.set("c", "%%", function()
 	return vim.fn.expand("%:h") .. "/"

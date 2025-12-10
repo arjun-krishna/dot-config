@@ -117,4 +117,5 @@ Follow mamba [installation guide](https://mamba.readthedocs.io/en/latest/install
 
 ```bash
 npm install tree-sitter-cli -g
+# cargo install --locked tree-sitter-cli (used in Mac)
 ```
