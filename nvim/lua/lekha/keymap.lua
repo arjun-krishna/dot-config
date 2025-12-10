@@ -3,8 +3,8 @@ vim.keymap.set("i", "<C-spc>", "<C-x><C-o>", { silent = true }) -- Ctrl+Space fo
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 vim.keymap.set("n", "<leader>x", "<cmd>:q<cr>", { desc = "close buffer" })
+-- vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
 
 vim.keymap.set("c", "%%", function()
