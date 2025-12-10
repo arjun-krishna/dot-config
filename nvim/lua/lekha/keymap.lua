@@ -1,4 +1,5 @@
 vim.keymap.set("i", "jk", "<Esc>", { silent = true }) -- jk maps to Esc in insert mode
+vim.keymap.set("i", "<C-spc>", "<C-x><C-o>", { silent = true }) -- Ctrl+Space for omnifunc completion
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
