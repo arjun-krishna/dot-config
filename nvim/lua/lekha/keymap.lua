@@ -46,3 +46,5 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "J", "mzJ`z")
 
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Show [E]rrors" })
+
+vim.keymap.set('n', '<leader>cp', ':let @+=expand("%")<CR>', { noremap = true, silent = true, desc = "Copy [C]urrent [P]ath" })
