@@ -30,4 +30,53 @@ if [ -f "/home/$USER/miniforge3/etc/profile.d/mamba.sh" ]; then
 fi
 # <<< conda initialize <<<
 #
-export DISPLAY=:1
+move_job() {
+    if (( $# < 2 || $# > 3 )); then
+        echo "Usage: move_job <jobid> <queue> <?timeLimit>"
+        return 1
+    fi
+
+    local jobid=$1
+    local queue=$2
+    local timeLimit="${3:-0}"
+    local valid_queues=(l m h)
+
+    # ZSH-native way to check if an element is in an array
+    if [[ ${valid_queues[(I)$queue]} -eq 0 ]]; then
+        echo "invalid queue target: $queue. valid options are: ${valid_queues[*]}"
+        return 1
+    fi
+
+    local defaultTimeLimit
+    case $queue in
+        l|h) defaultTimeLimit="24:00:00" ;;
+        m)   defaultTimeLimit="12:00:00" ;;
+        *)
+            echo "unexpected error."
+            return 1
+            ;;
+    esac
+
+    [[ "$timeLimit" == "0" ]] && timeLimit=$defaultTimeLimit
+
+    if [[ "$queue" == "l" ]]; then
+        scontrol update jobid=$jobid partition=batch qos=normal timeLimit=$timeLimit
+    elif [[ "$queue" == "h" ]]; then
+        scontrol update jobid=$jobid partition=dineshj-compute qos=dj-high timeLimit=$timeLimit
+    else
+        scontrol update jobid=$jobid partition=dineshj-compute qos=dj-med timeLimit=$timeLimit
+    fi
+}
+
+sline() {
+    if (( $# != 1 )); then
+        echo "Usage: sline <jobid>"
+        return 1
+    fi
+    local jobid=$1
+    sacct -j $jobid -o submitline -P
+}
+
+nvstats() {
+    nvidia-smi --query-gpu=timestamp,name,pstate,temperature.gpu,utilization.gpu,utilization.memory,memory.used,memory.total --format csv -l 1
+}
