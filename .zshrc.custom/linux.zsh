@@ -68,6 +68,28 @@ move_job() {
     fi
 }
 
+move_job_re() {
+    if (( $# < 2 || $# > 3 )); then
+        echo "Usage: move_job_re <jobid_regex> <queue> <?timeLimit>"
+        return 1
+    fi
+
+    local jobid_regex=$1
+    local queue=$2
+    local timeLimit="${3:-0}"
+
+    local jobids=($(squeue -u arjk -h -o "%A" | grep -E "$jobid_regex"))
+
+    if (( ${#jobids[@]} == 0 )); then
+        echo "No jobs found matching regex: $jobid_regex"
+        return 1
+    fi
+
+    for jobid in "${jobids[@]}"; do
+        move_job $jobid $queue $timeLimit
+    done
+}
+
 sline() {
     if (( $# != 1 )); then
         echo "Usage: sline <jobid>"
