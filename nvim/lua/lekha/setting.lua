@@ -53,3 +53,11 @@ vim.g.vimtex_compiler_latexmk = {
     '-interaction=nonstopmode',
   },
 }
+-- ty LSP
+--
+vim.lsp.config('ty', {
+  settings = {
+    ty = {},
+  }
+})
+vim.lsp.enable('ty')
