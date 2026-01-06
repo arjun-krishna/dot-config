@@ -119,3 +119,17 @@ Follow mamba [installation guide](https://mamba.readthedocs.io/en/latest/install
 npm install tree-sitter-cli -g
 # cargo install --locked tree-sitter-cli (used in Mac)
 ```
+
+# Latex
+
+## TexLive
+
+```bash
+sudo apt install texlive-science
+```
+
+## Zathura
+
+```bash
+sudo apt install zathura
+```
