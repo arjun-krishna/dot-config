@@ -26,3 +26,5 @@ if [ -f "/Users/akrishna/miniforge3/etc/profile.d/mamba.sh" ]; then
     . "/Users/akrishna/miniforge3/etc/profile.d/mamba.sh"
 fi
 # <<< conda initialize <<<
+#
+export DBUS_SESSION_BUS_ADDRESS='unix:path='$DBUS_LAUNCHD_SESSION_BUS_SOCKET

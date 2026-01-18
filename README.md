@@ -54,6 +54,12 @@ sudo apt install libncurses-dev libevent-dev
 sudo apt install ripgrep
 ```
 
+- fd [fd](https://github.com/sharkdp/fd)
+```bash
+apt install fd
+brew install fd
+```
+
 - fzf
 ```bash
 brew install fzf
@@ -132,4 +138,24 @@ sudo apt install texlive-science
 
 ```bash
 sudo apt install zathura
+```
+
+```
+1. `brew install dbus` or "reinstall"
+2. add export DBUS_SESSION_BUS_ADDRESS='unix:path='$DBUS_LAUNCHD_SESSION_BUS_SOCKET to .zshrc
+3. Run brew services start dbus
+
+Install Zathura
+# unlink installed zathura and girara
+brew unlink girara
+brew unlink zathura
+
+# install HEAD
+brew install girara
+brew uninstall zathura-pdf-poppler
+brew uninstall zathura
+brew install zathura --with-synctex
+brew install zathura-pdf-poppler
+mkdir -p $(brew --prefix zathura)/lib/zathura
+ln -s $(brew --prefix zathura-pdf-poppler)/libpdf-poppler.dylib $(brew --prefix zathura)/lib/zathura/libpdf-poppler.dylib
 ```
