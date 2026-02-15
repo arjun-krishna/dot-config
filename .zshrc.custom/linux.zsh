@@ -102,3 +102,11 @@ sline() {
 nvstats() {
     nvidia-smi --query-gpu=timestamp,name,pstate,temperature.gpu,utilization.gpu,utilization.memory,memory.used,memory.total --format csv -l 1
 }
+
+# gcloud
+if [ -f $HOME/software/google-cloud-sdk/path.zsh.inc ]; then
+    . $HOME/software/google-cloud-sdk/path.zsh.inc
+fi
+if [ -f $HOME/software/google-cloud-sdk/completion.zsh.inc ]; then
+    . $HOME/software/google-cloud-sdk/completion.zsh.inc
+fi
