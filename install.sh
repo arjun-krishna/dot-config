@@ -51,6 +51,7 @@ update_config() {
 }
 
 link_config nvim $(pwd)/nvim $HOME/.config/nvim
+link_config doom $(pwd)/doom $HOME/.config/doom
 link_config tmux $(pwd)/tmux $HOME/.config/tmux
 if [[ "$OSTYPE" == "darwin"* ]]; then
     link_config alacritty $(pwd)/alacritty/osx $HOME/.config/alacritty

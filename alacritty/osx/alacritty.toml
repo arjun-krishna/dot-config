@@ -10,6 +10,7 @@ padding.y = 0
 decorations = "Full"
 decorations_theme_variant = "Dark"
 dynamic_title = false
+option_as_alt = "Both"
 
 [font]
 # normal = { family = "MesloLGS NF", style = "Regular" }
