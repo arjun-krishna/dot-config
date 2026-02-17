@@ -69,3 +69,6 @@
 (after! evil-escape
   (setq evil-escape-key-sequence "jk")
   (setq evil-escape-delay 0.1)) ; 100ms
+
+
+(setq mac-command-modifier 'meta)
