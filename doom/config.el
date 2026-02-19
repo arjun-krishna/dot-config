@@ -19,8 +19,8 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+(setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 15))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -71,4 +71,10 @@
   (setq evil-escape-delay 0.1)) ; 100ms
 
 
-(setq mac-command-modifier 'meta)
+(setq mac-command-modifier 'meta) ;; Cmd -> M (doesn't work in terminal; despite alacritty changes)
+(setq confirm-kill-emacs 'nil)
+
+;; start maximized
+(add-to-list 'default-frame-alist '(fullscreen . fullboth))
+
+(load! "cfg/copilot") ;; doesn't work node server jsonrpc error
