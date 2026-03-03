@@ -20,6 +20,14 @@
 ;;   :recipe (:host github :repo "username/repo"))
 (package! copilot :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el" "dist")))
 
+(package! inheritenv
+  :recipe (:host github :repo "purcell/inheritenv"))
+
+(package! claude-code
+  :recipe (:host github :repo "stevemolitor/claude-code.el"
+           :files ("*.el" (:exclude "images/*"))))
+
+
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
 ;; file, or is located in a subdirectory of the repo, you'll need to specify
 ;; `:files' in the `:recipe':

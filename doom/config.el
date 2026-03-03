@@ -7,6 +7,8 @@
 ;; clients, file templates and snippets. It is optional.
 (setq user-full-name "Arjun Krishna")
 
+(repeat-mode 1) ;; enable transient keymaps for repeating complex commands with a single keypress
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
 ;; - `doom-font' -- the primary font to use
@@ -26,6 +28,8 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-gruvbox)
+(custom-set-faces!
+  '(font-lock-comment-face :foreground "NavajoWhite3" :slant italic))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -34,7 +38,6 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
-
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `with-eval-after-load' block, otherwise Doom's defaults may override your
@@ -77,4 +80,6 @@
 ;; start maximized
 (add-to-list 'default-frame-alist '(fullscreen . fullboth))
 
-(load! "cfg/copilot") ;; doesn't work node server jsonrpc error
+(load! "cfg/copilot")
+(load! "cfg/claude")
+(load! "private" nil t)
