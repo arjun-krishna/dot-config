@@ -81,5 +81,8 @@
 (add-to-list 'default-frame-alist '(fullscreen . fullboth))
 
 (load! "cfg/copilot")
+(load! "cfg/org")
 (load! "cfg/claude")
+(load! "cfg/tramp")
+(load! "cfg/tex")
 (load! "private" nil t)
