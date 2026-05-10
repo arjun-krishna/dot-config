@@ -58,6 +58,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 else
     link_config alacritty $(pwd)/alacritty/linux $HOME/.config/alacritty
 fi
+link_config wezterm $(pwd)/wezterm $HOME/.config/wezterm
 
 update_config zshrc .zshrc $HOME/.zshrc
 link_config zshrc_custom $(pwd)/.zshrc.custom $HOME/.zshrc.custom
