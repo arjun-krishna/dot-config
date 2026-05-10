@@ -1,3 +1,9 @@
-(setq TeX-view-program-selection '((output-pdf "Zathura")))
-(setq TeX-view-program-list '(("Zathura" "zathura --synctex-forward %n:0:%b %o")))
-(setq TeX-source-correlate-mode t) ; enable Synctex
+(setq +latex-viewers '(zathura))
+
+(after! tex
+  (setq TeX-source-correlate-mode t
+        TeX-source-correlate-method 'synctex
+        TeX-source-correlate-start-server t
+        TeX-fold-auto-reveal t))
+
+(add-hook 'LaTeX-mode-hook #'outline-minor-mode)
