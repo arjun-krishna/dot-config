@@ -19,17 +19,24 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 vim.api.nvim_create_autocmd({ "FileType" }, {
     desc = 'use treesitter fold when parser exists',
     callback = function()
-        -- check if treesitter has parser
+        local ft = vim.bo.filetype
+        if ft == "tex" or ft == "latex" then
+             return -- vimtex handles this exclusively
+        end
         if require('nvim-treesitter.parsers').has_parser() then
             -- use treesitter folding
-            vim.opt.foldmethod = "expr"
-            vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+            vim.opt_local.foldmethod = "expr"
+            vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            vim.schedule(function()
+                vim.cmd("normal! zx") -- schedule update folds
+            end)
         else
             -- use alt foldmethod
-            vim.opt.foldmethod = "syntax"
+            vim.opt_local.foldmethod = "syntax"
         end
     end,
 })
+
 vim.api.nvim_create_autocmd({"FocusGained", "BufEnter"}, {
     command = "checktime",
     pattern = "*",

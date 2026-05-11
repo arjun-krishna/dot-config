@@ -122,8 +122,7 @@ Follow mamba [installation guide](https://mamba.readthedocs.io/en/latest/install
 ## TreeSitter
 
 ```bash
-npm install tree-sitter-cli -g
-# cargo install --locked tree-sitter-cli (used in Mac)
+cargo install --locked "tree-sitter-cli@0.25.10"
 ```
 
 # Latex

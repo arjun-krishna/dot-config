@@ -1,7 +1,7 @@
 vim.keymap.set("i", "jk", "<Esc>", { silent = true }) -- jk maps to Esc in insert mode
 vim.keymap.set("i", "<C-spc>", "<C-x><C-o>", { silent = true }) -- Ctrl+Space for omnifunc completion
 
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, {desc = "vim :e"} )
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<leader>x", "<cmd>:q<cr>", { desc = "close buffer" })
 -- vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
@@ -12,10 +12,10 @@ vim.keymap.set("c", "%%", function()
 end, {expr = true, desc = "Expand to current file path"})
 
 --  copy to clipboard by default
-vim.keymap.set("n", "<leader>y", "\"+y")
-vim.keymap.set("v", "<leader>y", "\"+y")
-vim.keymap.set("n", "<leader>Y", "\"+y")
-vim.keymap.set("v", "<leader>Y", "\"+y")
+vim.keymap.set("n", "<leader>y", "\"+y", { desc = "Yank" })
+vim.keymap.set("v", "<leader>y", "\"+y", { desc = "Yank" })
+vim.keymap.set("n", "<leader>Y", "\"+y", { desc = "Yank" })
+vim.keymap.set("v", "<leader>Y", "\"+y", { desc = "Yank" })
 
 -- TODO: swap out with toggleterm functions
 vim.keymap.set("n", "<leader>sT", function()
@@ -26,7 +26,7 @@ vim.keymap.set("n", "<leader>sT", function()
     vim.cmd.term()
     vim.cmd.wincmd("J")
     vim.api.nvim_win_set_height(0, height)
-end)
+end, { desc = "Open [S]hell in current file [T]ab" })
 
 vim.keymap.set("n", "<leader>st", function()
     local height = math.floor(vim.o.lines * 0.2)
@@ -34,16 +34,16 @@ vim.keymap.set("n", "<leader>st", function()
     vim.cmd.term()
     vim.cmd.wincmd("J")
     vim.api.nvim_win_set_height(0, height)
-end)
+end, { desc = "Open [S]hell in new [T]ab" })
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "<C-f>", "<C-f>zz")
 vim.keymap.set("n", "<C-b>", "<C-b>zz")
 
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
+vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines w/o moving cursor" })
 
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Show [E]rrors" })
 

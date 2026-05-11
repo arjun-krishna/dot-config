@@ -18,6 +18,8 @@ return {
             'yaml',
             'json',
             'xml',
+            'rust',
+            'latex',
           },
 
           -- Auto-install missing parsers when entering a buffer
@@ -26,11 +28,15 @@ return {
           -- Enable syntax highlighting
           highlight = {
                 enable = true,
-                additional_vim_regex_highlighting = false,
+                disable = { 'latex' },
+                additional_vim_regex_highlighting = { 'latex' },
           },
 
           -- Enable indentation based on treesitter
-          indent = { enable = true },
+          indent = {
+                enable = true,
+                disable = { 'latex' },
+          },
 
           ignore_install = { 'org' },
         }
