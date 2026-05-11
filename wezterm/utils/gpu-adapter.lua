@@ -1,13 +1,9 @@
 local wezterm = require('wezterm')
 local platform = require('utils.platform')
 
----Backend options available based for the platforms.
----Higher the score, the better the backend (I think 🤷).
----See `https://github.com/gfx-rs/wgpu#supported-platforms` for more info on available backends
--- stylua: ignore
 local AVAILABLE_BACKENDS = {
    linux   = { Vulkan = 2, Gl     = 1 },
-   mac     = { Metal  = 1 },
+   osx     = { Metal  = 1 },
 }
 
 ---Device type options available.

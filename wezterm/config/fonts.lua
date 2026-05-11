@@ -2,7 +2,7 @@ local wezterm = require('wezterm')
 local platform = require('utils.platform')
 
 local font_family = 'FiraCode Nerd Font'
-local font_size = 12.0
+local font_size = platform.is_linux and 12.0 or 12.5
 
 ---@type Config
 return {

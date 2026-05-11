@@ -213,7 +213,7 @@ local mouse_bindings = {
 --- @type Config
 return {
     disable_default_key_bindings = true,
-    leader = { key = 'Space', mods = mod.SUPER_REV },
+    leader = { key = 'Space', mods = 'SHIFT|CTRL', timeout_milliseconds = 1000 },
     keys = keys,
     key_tables = key_tables,
     mouse_bindings = mouse_bindings,
