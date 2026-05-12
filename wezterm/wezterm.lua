@@ -11,4 +11,5 @@ local Config = require('config')
 return Config:init()
     :append(require('config.bindings'))
     :append(require('config.appearance'))
+    :append(require('config.mux'))
     :append(require('config.fonts')).options
