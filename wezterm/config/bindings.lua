@@ -12,15 +12,48 @@ elseif platform.is_linux then
     mod.SUPER_REV = 'ALT|CTRL'
 end
 
+local function is_vim(pane)
+    return pane:get_user_vars().IS_NVIM == 'true'
+end
+
+local direction_keys = {
+    h = 'Left',
+    j = 'Down',
+    k = 'Up',
+    l = 'Right',
+}
+
+local function split_nav(resize_or_move, key)
+  return {
+    key = key,
+    mods = resize_or_move == 'resize' and 'META' or 'CTRL',
+    action = wezterm.action_callback(function(win, pane)
+      if is_vim(pane) then
+        -- pass the keys through to vim/nvim
+        win:perform_action({
+          SendKey = { key = key, mods = resize_or_move == 'resize' and 'META' or 'CTRL' },
+        }, pane)
+      else
+        if resize_or_move == 'resize' then
+          win:perform_action({ AdjustPaneSize = { direction_keys[key], 3 } }, pane)
+        else
+          win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
+        end
+      end
+    end),
+  }
+end
+
+
 --- @type Key[]
 local keys = {
     --- misc
-    { key = 'F1', mods = 'NONE', action = act.ActivateCopyMode },
-    { key = 'F2', mods = 'NONE', action = act.ActivateCommandPalette },
-    { key = 'F3', mods = 'NONE', action = act.ShowLauncher },
-    { key = 'F4', mods = 'NONE', action = act.ShowLauncherArgs({ flags = 'FUZZY|TABS' }) },
+    { key = 'Enter', mods = 'LEADER', action = act.ActivateCopyMode },
+    { key = 'F1', mods = 'NONE', action = act.ActivateCommandPalette },
+    { key = 'F2', mods = 'NONE', action = act.ShowLauncher },
+    { key = 'F3', mods = 'NONE', action = act.ShowLauncherArgs({ flags = 'FUZZY|TABS' }) },
     {
-        key = 'F5',
+        key = 'F4',
         mods = 'NONE',
         action = act.ShowLauncherArgs({ flags = 'FUZZY|WORKSPACES' }),
     },
@@ -47,22 +80,12 @@ local keys = {
       }),
     },
 
-   -- cursor movement --
-   { key = 'LeftArrow',  mods = mod.SUPER,     action = act.SendString('\u{1b}OH') },
-   { key = 'RightArrow', mods = mod.SUPER,     action = act.SendString('\u{1b}OF') },
-   { key = 'Backspace',  mods = mod.SUPER,     action = act.SendString('\u{15}') },
-
    -- copy/paste --
    { key = 'c',          mods = 'CTRL|SHIFT',  action = act.CopyTo('Clipboard') },
    { key = 'v',          mods = 'CTRL|SHIFT',  action = act.PasteFrom('Clipboard') },
-
-   { key = 'n',          mods = 'CTRL|SHIFT',  action = act.SendString('\u{2660}') },
-   { key = 's',          mods = 'CTRL|SHIFT',  action = act.SendString('\u{203D}') },
-
    -- tabs --
    -- tabs: spawn+close
    { key = 't',          mods = mod.SUPER,     action = act.SpawnTab('DefaultDomain') },
-   { key = 't',          mods = mod.SUPER_REV, action = act.SpawnTab({ DomainName = 'wsl:ubuntu-fish' }) },
    { key = 'w',          mods = mod.SUPER_REV, action = act.CloseCurrentTab({ confirm = false }) },
 
    -- tabs: navigation
@@ -76,7 +99,7 @@ local keys = {
    { key = '0',          mods = mod.SUPER_REV, action = act.EmitEvent('tabs.reset-tab-title') },
 
    -- tab: hide tab-bar
-   { key = '9',          mods = mod.SUPER,     action = act.EmitEvent('tabs.toggle-tab-bar'), },
+   { key = 't',          mods = "LEADER",     action = act.EmitEvent('tabs.toggle-tab-bar'), },
 
    -- window --
    -- window: spawn windows
@@ -88,12 +111,6 @@ local keys = {
       mods = mod.SUPER,
       action = wezterm.action_callback(function(window, _pane)
          local dimensions = window:get_dimensions()
-         -- on Windows 11 (the only OS I'm able to test this on), `is_full_screen` is always false (it's a bug).
-         -- Calling `set_inner_size` when the window is actually in fullscreen will cause the
-         -- program UI to completely freeze.
-         if platform.is_win or dimensions.is_full_screen then
-            return
-         end
          local new_width = dimensions.pixel_width - 50
          local new_height = dimensions.pixel_height - 50
          window:set_inner_size(new_width, new_height)
@@ -104,12 +121,6 @@ local keys = {
       mods = mod.SUPER,
       action = wezterm.action_callback(function(window, _pane)
          local dimensions = window:get_dimensions()
-         -- on Windows 11 (the only OS I'm able to test this on), `is_full_screen` is always false (it's a bug).
-         -- Calling `set_inner_size` when the window is actually in fullscreen will cause the
-         -- program UI to completely freeze.
-         if platform.is_win or dimensions.is_full_screen then
-            return
-         end
          local new_width = dimensions.pixel_width + 50
          local new_height = dimensions.pixel_height + 50
          window:set_inner_size(new_width, new_height)
@@ -125,28 +136,32 @@ local keys = {
     --- panes --
    -- panes: split panes
    {
-      key = [[\]],
-      mods = mod.SUPER,
+      key = "-",
+      mods = "LEADER",
       action = act.SplitVertical({ domain = 'CurrentPaneDomain' }),
    },
    {
-      key = [[/]],
-      mods = mod.SUPER,
+      key = "=",
+      mods = "LEADER",
       action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' }),
    },
 
    -- panes: zoom+close pane
-   { key = 'Enter', mods = mod.SUPER,     action = act.TogglePaneZoomState },
-   { key = 'w',     mods = mod.SUPER,     action = act.CloseCurrentPane({ confirm = false }) },
+   { key = 'm',     mods = "LEADER",     action = act.TogglePaneZoomState },
+   { key = 'w',     mods = "LEADER",     action = act.CloseCurrentPane({ confirm = false }) },
 
    -- panes: navigation
-   { key = 'k',     mods = mod.SUPER_REV, action = act.ActivatePaneDirection('Up') },
-   { key = 'j',     mods = mod.SUPER_REV, action = act.ActivatePaneDirection('Down') },
-   { key = 'h',     mods = mod.SUPER_REV, action = act.ActivatePaneDirection('Left') },
-   { key = 'l',     mods = mod.SUPER_REV, action = act.ActivatePaneDirection('Right') },
+   split_nav('move', 'h'),
+   split_nav('move', 'j'),
+   split_nav('move', 'k'),
+   split_nav('move', 'l'),
+   --- { key = 'k',     mods = "CTRL", action = act.ActivatePaneDirection('Up') },
+   --- { key = 'j',     mods = "CTRL", action = act.ActivatePaneDirection('Down') },
+   --- { key = 'h',     mods = "CTRL", action = act.ActivatePaneDirection('Left') },
+   --- { key = 'l',     mods = "CTRL", action = act.ActivatePaneDirection('Right') },
    {
       key = 'p',
-      mods = mod.SUPER_REV,
+      mods = "CTRL",
       action = act.PaneSelect({ alphabet = '1234567890', mode = 'SwapWithActiveKeepFocus' }),
    },
 
@@ -168,6 +183,10 @@ local keys = {
       }),
    },
    -- resize panes
+   split_nav('resize', 'h'),
+   split_nav('resize', 'j'),
+   split_nav('resize', 'k'),
+   split_nav('resize', 'l'),
    {
       key = 'p',
       mods = 'LEADER',
@@ -178,6 +197,19 @@ local keys = {
       }),
    },
 
+   -- rename
+   {
+        key = 'r',
+        mods = 'LEADER',
+        action = act.PromptInputLine({
+            description = 'Enter new name for tab',
+            action = wezterm.action_callback(function(window, pane, line)
+                if line then
+                    window:active_tab():set_title(line)
+                end
+            end),
+        }),
+   }
 }
 
 -- stylua: ignore
@@ -213,7 +245,7 @@ local mouse_bindings = {
 --- @type Config
 return {
     disable_default_key_bindings = true,
-    leader = { key = 'Space', mods = 'SHIFT|CTRL', timeout_milliseconds = 1000 },
+    leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 },
     keys = keys,
     key_tables = key_tables,
     mouse_bindings = mouse_bindings,

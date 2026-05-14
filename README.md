@@ -29,7 +29,8 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 - install nvim. [https://github.com/neovim/neovim/wiki/Building-Neovim](build-from-src)
 ```bash
 cd ~
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
+mv nvim-linux-x86_64.appimage nvim.appimage
 chmod u+x nvim.appimage
 ./nvim.appimage
 sudo ln -s ~/nvim.appimage /usr/bin/nvim
