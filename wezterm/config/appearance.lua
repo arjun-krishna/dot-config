@@ -55,4 +55,38 @@ return {
         fade_out_duration_ms = 250,
         target = 'CursorColor',
     },
+    colors = {
+        tab_bar = {
+            -- background = '#090909',
+            -- active_tab = {
+            --     bg_color = '#090909',
+            --     fg_color = '#b4befe',
+            --     intensity = 'Bold',
+            -- },
+            -- inactive_tab = {
+            --     bg_color = '#090909',
+            --     fg_color = '#b4befe',
+            -- },
+            background = '#090909',
+            -- Active tab colors
+            active_tab = {
+              bg_color = '#1b1b1b',
+              fg_color = '#ffffff',
+              intensity = 'Bold',
+              underline = 'Single',
+              italic = false,
+              strikethrough = false,
+            },
+            -- Inactive tab colors
+            inactive_tab = {
+              bg_color = '#000000',
+              fg_color = '#a0a0a0',
+            },
+            -- Inactive tab on hover
+            inactive_tab_hover = {
+              bg_color = '#3b3052',
+              fg_color = '#ffffff',
+            },
+        },
+    },
 }
