@@ -1,6 +1,7 @@
 return {
     "robitx/gp.nvim",
     config  = function()
+        gemini_api_key = os.getenv("GEMINI_API_KEY")
         local conf = {
             providers = {
                 copilot = {
@@ -11,9 +12,19 @@ return {
 				        "cat ~/.config/github-copilot/apps.json | sed -e 's/.*oauth_token...//;s/\".*//'",
 			        },
                 },
-                googleai = {
-                    endpoint = "https://generativelanguage.googleapis.com/v1beta/models/{{model}}:streamGenerateContent?key={{secret}}",
+                gemini = {
+                    endpoint = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
                     secret = os.getenv("GEMINI_API_KEY"),
+                },
+            },
+            agents = {
+                {
+                    provider = "gemini",
+                    name = "flash",
+                    chat = true,
+                    command = false,
+                    model = { model = "gemini-3.1-flash-lite" },
+                    system_prompt = require('gp.defaults').chat_system_prompt,
                 },
             }
         }
