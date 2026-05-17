@@ -147,7 +147,7 @@ local keys = {
    },
 
    -- panes: zoom+close pane
-   { key = 'm',     mods = "LEADER",     action = act.TogglePaneZoomState },
+   { key = 'z',     mods = "LEADER",     action = act.TogglePaneZoomState },
    { key = 'w',     mods = "LEADER",     action = act.CloseCurrentPane({ confirm = false }) },
 
    -- panes: navigation
@@ -209,7 +209,27 @@ local keys = {
                 end
             end),
         }),
-   }
+   },
+
+    -- trigger clear sequence
+    {
+        key = 'l',
+        mods = 'LEADER',
+        action = act.Multiple {
+            act.ClearScrollback 'ScrollbackAndViewport',
+            act.SendString '\x0c',
+        },
+    },
+    {
+        key = 'l',
+        mods = 'LEADER',
+        action = wezterm.action_callback(function(window, pane)
+          local process_name = pane:get_foreground_process_name()
+          if process_name:match("zsh") or process_name:match("bash") then
+            pane:send_text("\x1b[2J\x1b[3J\x1b[H")
+          end
+        end),
+    },
 }
 
 -- stylua: ignore
