@@ -155,13 +155,17 @@ local keys = {
    split_nav('move', 'j'),
    split_nav('move', 'k'),
    split_nav('move', 'l'),
-   --- { key = 'k',     mods = "CTRL", action = act.ActivatePaneDirection('Up') },
-   --- { key = 'j',     mods = "CTRL", action = act.ActivatePaneDirection('Down') },
-   --- { key = 'h',     mods = "CTRL", action = act.ActivatePaneDirection('Left') },
-   --- { key = 'l',     mods = "CTRL", action = act.ActivatePaneDirection('Right') },
+
+   -- resize panes
+   split_nav('resize', 'h'),
+   split_nav('resize', 'j'),
+   split_nav('resize', 'k'),
+   split_nav('resize', 'l'),
+
+   -- pane selection
    {
       key = 'p',
-      mods = "CTRL",
+      mods = 'LEADER',
       action = act.PaneSelect({ alphabet = '1234567890', mode = 'SwapWithActiveKeepFocus' }),
    },
 
@@ -178,20 +182,6 @@ local keys = {
       mods = 'LEADER',
       action = act.ActivateKeyTable({
          name = 'resize_font',
-         one_shot = false,
-         timeout_milliseconds = 1000,
-      }),
-   },
-   -- resize panes
-   split_nav('resize', 'h'),
-   split_nav('resize', 'j'),
-   split_nav('resize', 'k'),
-   split_nav('resize', 'l'),
-   {
-      key = 'p',
-      mods = 'LEADER',
-      action = act.ActivateKeyTable({
-         name = 'resize_pane',
          one_shot = false,
          timeout_milliseconds = 1000,
       }),
