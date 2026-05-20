@@ -13,7 +13,16 @@ elseif platform.is_linux then
 end
 
 local function is_vim(pane)
-    return pane:get_user_vars().IS_NVIM == 'true'
+    -- return pane:get_user_vars().IS_NVIM == 'true'
+    local process_name = pane:get_foreground_process_name()
+    if process_name then
+        process_name = process_name:lower()
+        if process_name:find('n?vim') then
+            return true
+        end
+    end
+    local title = pane:get_title():lower()
+    return title:find('n?vim') ~= nil
 end
 
 local direction_keys = {
