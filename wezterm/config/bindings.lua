@@ -175,8 +175,14 @@ local keys = {
    {
       key = 'p',
       mods = 'LEADER',
-      action = act.PaneSelect({ alphabet = '1234567890', mode = 'SwapWithActiveKeepFocus' }),
+      action = act.PaneSelect({ mode = 'Activate' }),
    },
+   {
+      key = 's',
+      mods = 'LEADER',
+      action = act.PaneSelect({ mode = 'SwapWithActiveKeepFocus' }),
+   },
+
 
    -- panes: scroll pane
    { key = 'u',        mods = mod.SUPER, action = act.ScrollByLine(-5) },
