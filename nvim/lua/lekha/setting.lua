@@ -8,6 +8,19 @@ vim.opt.tabstop = 4       -- number of spaces a <Tab> counts for
 vim.opt.shiftwidth = 4    -- number of spaces used for autoindent
 vim.opt.expandtab = true  -- convert tabs to spaces
 vim.opt.clipboard = 'unnamedplus'  -- use system clipboard
+if vim.env.SSH_TTY ~= nil or vim.env.SSH_CONNECTION ~= nil then
+    vim.g.clipboard = {
+        name = 'OSC 52',
+        copy = {
+            ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+            ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+        },
+        paste = {
+            ['+'] = function() end,
+            ['*'] = function() end,
+        },
+    }
+end
 
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 vim.o.termguicolors = true
