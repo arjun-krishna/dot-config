@@ -9,6 +9,13 @@ vim.opt.shiftwidth = 4    -- number of spaces used for autoindent
 vim.opt.expandtab = true  -- convert tabs to spaces
 vim.opt.clipboard = 'unnamedplus'  -- use system clipboard
 if vim.env.SSH_TTY ~= nil or vim.env.SSH_CONNECTION ~= nil then
+    local function wez_paste()
+        return {
+            vim.fn.split(vim.fn.getreg(""), "\n"),
+            vim.fn.getregtype(""),
+        }
+    end
+
     vim.g.clipboard = {
         name = 'OSC 52',
         copy = {
@@ -16,8 +23,8 @@ if vim.env.SSH_TTY ~= nil or vim.env.SSH_CONNECTION ~= nil then
             ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
         },
         paste = {
-            ['+'] = function() end,
-            ['*'] = function() end,
+            ['+'] = wez_paste,
+            ['*'] = wez_paste,
         },
     }
 end
