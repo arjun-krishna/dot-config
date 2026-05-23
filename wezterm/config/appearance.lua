@@ -7,6 +7,7 @@ return {
     webgpu_power_preference = 'HighPerformance',
     webgpu_preferred_adapter = gpu_adapters:pick_best(),
     underline_thickness = '1.5pt',
+    use_resize_increments = true,
 
     -- cursor
     animation_fps = 120,
