@@ -7,7 +7,7 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.opt.tabstop = 4       -- number of spaces a <Tab> counts for
 vim.opt.shiftwidth = 4    -- number of spaces used for autoindent
 vim.opt.expandtab = true  -- convert tabs to spaces
-vim.opt.clipboard = 'unnamedplus'  -- use system clipboard
+vim.opt.clipboard = 'unnamedplus'
 if vim.env.SSH_TTY ~= nil or vim.env.SSH_CONNECTION ~= nil then
     local function wez_paste()
         return {
@@ -27,6 +27,8 @@ if vim.env.SSH_TTY ~= nil or vim.env.SSH_CONNECTION ~= nil then
             ['*'] = wez_paste,
         },
     }
+else
+    vim.g.clipboard = nil
 end
 
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
