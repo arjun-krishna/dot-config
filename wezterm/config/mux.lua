@@ -6,4 +6,5 @@ return {
         },
     },
     default_gui_startup_args = { 'connect', 'unix' },
+    mux_output_size_strategy = 'ActiveClient',
 }
