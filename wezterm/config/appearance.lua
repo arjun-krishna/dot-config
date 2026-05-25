@@ -17,7 +17,7 @@ return {
     cursor_blink_rate = 600,
 
     -- scrollbar
-    enable_scroll_bar = true,
+    enable_scroll_bar = false,
     scrollback_lines = 10000,
 
     -- tabbar
@@ -34,7 +34,12 @@ return {
     command_palette_font_size = 12.0,
     command_palette_rows = 25,
 
+    -- macos
+    macos_window_background_blur = 0,
+    native_macos_fullscreen = false,
+
     -- window
+    window_decorations = 'RESIZE',
     window_padding = {
         left = 0,
         right = 0,
