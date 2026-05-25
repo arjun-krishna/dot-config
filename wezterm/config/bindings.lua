@@ -202,6 +202,17 @@ local keys = {
       }),
    },
 
+   -- resizes panes
+   {
+        key = 'w',
+        mods = 'LEADER',
+        action = act.ActivateKeyTable({
+            name = 'resize_pane',
+            one_shot = false,
+            timeout_milliseconds = 1000,
+        }),
+    },
+
    -- rename
    {
         key = 'r',
