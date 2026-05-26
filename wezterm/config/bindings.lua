@@ -154,6 +154,11 @@ local keys = {
       mods = "LEADER",
       action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' }),
    },
+   {
+      key = "\\",
+      mods = "LEADER",
+      action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' }),
+   },
 
    -- panes: zoom+close pane
    { key = 'z',     mods = "LEADER",     action = act.TogglePaneZoomState },

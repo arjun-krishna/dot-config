@@ -36,10 +36,10 @@ return {
 
     -- macos
     macos_window_background_blur = 0,
-    native_macos_fullscreen = false,
+    native_macos_fullscreen_mode = true,
 
     -- window
-    window_decorations = 'RESIZE',
+    window_decorations = 'TITLE | RESIZE',
     window_padding = {
         left = 0,
         right = 0,

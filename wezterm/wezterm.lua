@@ -12,4 +12,5 @@ return Config:init()
     :append(require('config.bindings'))
     :append(require('config.appearance'))
     :append(require('config.mux'))
-    :append(require('config.fonts')).options
+    :append(require('config.fonts'))
+    :append(require('config.general')).options
