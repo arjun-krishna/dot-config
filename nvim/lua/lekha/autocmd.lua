@@ -17,22 +17,26 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-    desc = 'use treesitter fold when parser exists',
-    callback = function()
-        local ft = vim.bo.filetype
+    desc = 'use treesitter highlight/fold when parser exists',
+    callback = function(args)
+        -- skip popup/scratch buffers (e.g. blink.cmp menu sets ft on its popup buf,
+        -- which would otherwise mutate the *current* window's foldmethod)
+        if vim.bo[args.buf].buftype ~= "" then return end
+
+        local ft = vim.bo[args.buf].filetype
         if ft == "tex" or ft == "latex" then
+            vim.opt_local.foldmethod = "syntax"
              return -- vimtex handles this exclusively
         end
-        if require('nvim-treesitter.parsers').has_parser() then
+        if pcall(vim.treesitter.get_parser, args.buf, nil) then
+            pcall(vim.treesitter.start, args.buf) -- syntax highlighting
             -- use treesitter folding
             vim.opt_local.foldmethod = "expr"
             vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
             vim.schedule(function()
                 vim.cmd("normal! zx") -- schedule update folds
             end)
-        else
-            -- use alt foldmethod
-            vim.opt_local.foldmethod = "syntax"
+            vim.bo[args.buf].indentexpr = "v:lua.vim.treesitter.indentexpr()"
         end
     end,
 })

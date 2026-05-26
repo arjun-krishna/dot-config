@@ -20,11 +20,19 @@ return {
             agents = {
                 {
                     provider = "gemini",
-                    name = "flash",
+                    name = "athena",
                     chat = true,
                     command = false,
-                    model = { model = "gemini-3.1-flash-lite" },
-                    system_prompt = require('gp.defaults').chat_system_prompt,
+                    model = { model = "gemini-3.5-flash" },
+                    system_prompt = require('lekha.prompts.writing').academic_system_prompt,
+                },
+                {
+                    provider = "gemini",
+                    name = "zod",
+                    chat = true,
+                    command = false,
+                    model = { model = "gemini-3.5-flash" },
+                    system_prompt = require('lekha.prompts.writing').chat_system_prompt,
                 },
             }
         }
