@@ -180,7 +180,7 @@ local keys = {
    {
       key = 'p',
       mods = 'LEADER',
-      action = act.PaneSelect({ mode = 'Activate' }),
+      action = act.PaneSelect({ mode = 'Activate', show_pane_ids = true }),
    },
    {
       key = 's',
