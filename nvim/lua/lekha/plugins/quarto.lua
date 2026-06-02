@@ -30,7 +30,7 @@ return {
         }
         local wk = require("which-key")
         wk.add({
-            { '<leader>qp', '<cmd>QuartoPreview<cr>', desc = 'Quarto [p]review' },
+            { '<leader>qp', '<cmd>QuartoPreview --port 8942<cr>', desc = 'Quarto [p]review' },
         }, { mode = 'n' })
     end,
 }
