@@ -25,8 +25,8 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
         local ft = vim.bo[args.buf].filetype
         if ft == "tex" or ft == "latex" then
-            vim.opt_local.foldmethod = "syntax"
-             return -- vimtex handles this exclusively
+            vim.opt_local.foldmethod = "expr"
+            return -- vimtex handles this exclusively
         end
         if pcall(vim.treesitter.get_parser, args.buf, nil) then
             pcall(vim.treesitter.start, args.buf) -- syntax highlighting

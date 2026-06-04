@@ -12,6 +12,7 @@ return {
           'c', 'cpp', 'bash', 'cuda', 'lua', 'markdown',
           'python', 'vim', 'yaml', 'json', 'xml', 'rust',
           'diff', 'gitcommit', 'markdown_inline', 'regex',
+          'toml',
         })
     end,
 }
