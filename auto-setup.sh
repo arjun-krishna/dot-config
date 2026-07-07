@@ -150,7 +150,11 @@ function update_link() {
     fi
 }
 
-# MACOS setup
+# [MAIN]
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    bash scripts/setup-linux.sh
+fi
+
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # neovim install
     dl_git "neovim/neovim" "nvim-macos-arm64.tar.gz"
@@ -224,6 +228,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         mkdir -p $DEPS_DIR/nvim
         mv $DL_PATH $DEPS_DIR/nvim/nvim.appimage
         chmod u+x $DEPS_DIR/nvim/nvim.appimage
+        mkdir -p $HOME/.local/bin
         update_link nvim $DEPS_DIR/nvim/nvim.appimage $HOME/.local/bin/nvim
     fi
 
@@ -234,7 +239,6 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     fi
     if [ -n "$DL_PATH" ]; then
         echo "(info) downloaded $DL_PATH"
-        xattr -c $DL_PATH
         bash $DL_PATH
         source "$HOME/.nvm/nvm.sh"
         nvm install 24

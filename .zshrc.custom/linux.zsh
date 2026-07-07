@@ -1,5 +1,3 @@
-setxkbmap -option ctrl:nocaps
-
 # ROS setup
 if [ -f /opt/ros/noetic/setup.zsh ]; then
 	source /opt/ros/noetic/setup.zsh
