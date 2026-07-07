@@ -1,6 +1,10 @@
 local gpu_adapters = require('utils.gpu-adapter')
 ---@type Config
 return {
+   -- wayland (issues with linux)
+    enable_wayland=false,
+
+    -- general
     color_scheme = 'Tokyo Night (Gogh)',
     max_fps = 120,
     front_end = 'WebGpu',
