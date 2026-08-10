@@ -1,0 +1,44 @@
+on_force_close "detach"
+
+scroll_buffer_size 10000
+mouse_mode true
+
+keybinds {
+    locked {
+        bind "Ctrl q" { SwitchToMode "Normal"; }
+    }
+    shared_except "locked" {
+        bind "Ctrl q" { SwitchToMode "Locked"; }
+        bind "Ctrl a" { SwitchToMode "Tmux"; }
+
+        // focus
+        bind "Ctrl Left" { MoveFocus "Left"; }
+        bind "Ctrl Right" { MoveFocus "Right"; }
+        bind "Ctrl Down" { MoveFocus "Down"; }
+        bind "Ctrl Up" { MoveFocus "Up"; }
+        bind "Ctrl h" { MoveFocus "Left"; }
+        bind "Ctrl j" { MoveFocus "Down"; }
+        bind "Ctrl k" { MoveFocus "Up"; }
+        bind "Ctrl l" { MoveFocus "Right"; }
+
+        // move
+        bind "Alt Left" { MovePane "Left"; }
+        bind "Alt Right" { MovePane "Right"; }
+        bind "Alt Down" { MovePane "Down"; }
+        bind "Alt Up" { MovePane "Up"; }
+        bind "Alt h" { MovePane "Left"; }
+        bind "Alt j" { MovePane "Down"; }
+        bind "Alt k" { MovePane "Up"; }
+        bind "Alt l" { MovePane "Right"; }
+        bind "Alt ]" { GoToNextTab; }
+        bind "Alt [" { GoToPreviousTab; }
+        bind "Alt f" { TogglePaneEmbedOrFloating; }
+    }
+    tmux {
+        // clear
+        bind "l" { Clear; SwitchToMode "Normal"; }
+    }
+    unbind "Ctrl g" // used by claude code/codex to enter editor
+}
+
+pane_frames false

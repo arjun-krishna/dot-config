@@ -50,6 +50,8 @@ sudo apt install libncurses-dev libevent-dev
 
 ## Terminal Utilities
 
+- [Zellij](https://zellij.dev/): terminal multiplexer used with WezTerm.
+
 - [ripgrep](https://github.com/BurntSushi/ripgrep): used by telescope in nvim to ignore files in .gitignore etc.,
 ```bash
 sudo apt install ripgrep

@@ -24,14 +24,6 @@ return {
     enable_scroll_bar = false,
     scrollback_lines = 10000,
 
-    -- tabbar
-    enable_tab_bar = true,
-    hide_tab_bar_if_only_one_tab = false,
-    use_fancy_tab_bar = true,
-    tab_max_width = 30,
-    show_tab_index_in_tab_bar = true,
-    switch_to_last_active_tab_when_closing_tab = true,
-
     -- command palette
     command_palette_fg_color = '#b4befe',
     command_palette_bg_color = '#11111b',
@@ -66,38 +58,5 @@ return {
         fade_out_duration_ms = 250,
         target = 'CursorColor',
     },
-    colors = {
-        tab_bar = {
-            -- background = '#090909',
-            -- active_tab = {
-            --     bg_color = '#090909',
-            --     fg_color = '#b4befe',
-            --     intensity = 'Bold',
-            -- },
-            -- inactive_tab = {
-            --     bg_color = '#090909',
-            --     fg_color = '#b4befe',
-            -- },
-            background = '#090909',
-            -- Active tab colors
-            active_tab = {
-              bg_color = '#1b1b1b',
-              fg_color = '#ffffff',
-              intensity = 'Bold',
-              underline = 'Single',
-              italic = false,
-              strikethrough = false,
-            },
-            -- Inactive tab colors
-            inactive_tab = {
-              bg_color = '#000000',
-              fg_color = '#a0a0a0',
-            },
-            -- Inactive tab on hover
-            inactive_tab_hover = {
-              bg_color = '#3b3052',
-              fg_color = '#ffffff',
-            },
-        },
-    },
+    enable_tab_bar = false,
 }
