@@ -74,8 +74,8 @@ local keys = {
     },
 
     { key = '+', mods = 'CTRL|SHIFT', action = act.IncreaseFontSize },
-    { key = '-', mods = 'CTRL|SHIFT', action = act.DecreaseFontSize },
-    { key = '0', mods = 'CTRL|SHIFT', action = act.ResetFontSize },
+    { key = '_', mods = 'CTRL|SHIFT', action = act.DecreaseFontSize },
+    { key = ')', mods = 'CTRL|SHIFT', action = act.ResetFontSize },
 }
 
 ---@type MouseBinding[]
