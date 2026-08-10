@@ -59,11 +59,3 @@ vim.cmd("syntax on")
 -- folding on startup
 vim.opt.foldenable = false
 vim.opt.foldlevel = 20
--- ty LSP
---
-vim.lsp.config('ty', {
-  settings = {
-    ty = {},
-  }
-})
-vim.lsp.enable('ty')
