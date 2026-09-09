@@ -70,3 +70,5 @@ update_config p10k .p10k.zsh $HOME/.p10k.zsh
 
 update_config vimrc vim/.vimrc $HOME/.vimrc
 link_config vim $(pwd)/vim/.vim $HOME/.vim
+
+link_config ghostty $(pwd)/ghostty $HOME/.config/ghostty
