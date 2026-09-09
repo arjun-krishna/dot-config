@@ -55,6 +55,8 @@ link_config doom $(pwd)/doom $HOME/.config/doom
 link_config tmux $(pwd)/tmux $HOME/.config/tmux
 if [[ "$OSTYPE" == "darwin"* ]]; then
     link_config alacritty $(pwd)/alacritty/osx $HOME/.config/alacritty
+    mkdir -p "$HOME/Library/Application Support/sioyek"
+    link_config sioyek $(pwd)/sioyek/keys_user.config "$HOME/Library/Application Support/sioyek/keys_user.config"
 else
     link_config alacritty $(pwd)/alacritty/linux $HOME/.config/alacritty
 fi

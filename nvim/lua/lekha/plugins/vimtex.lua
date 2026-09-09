@@ -2,7 +2,11 @@ return {
   "lervag/vimtex",
   lazy = false,
   init = function()
-    vim.g.vimtex_view_method = "zathura"
+    if (vim.uv or vim.loop).os_uname().sysname == "Darwin" then
+      vim.g.vimtex_view_method = "sioyek"
+    else
+      vim.g.vimtex_view_method = "zathura"
+    end
     vim.g.vimtex_compiler_method = "latexmk"
     vim.g.vimtex_compiler_latexmk = {
       build_dir = '',
