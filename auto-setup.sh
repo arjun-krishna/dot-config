@@ -60,6 +60,7 @@ function dl_git() {
     DL_PATH=""
     git_tag $repo
     local version=$VERSION
+    file="${file//\{version\}/$version}"
     check_cache $repo $version
     if [ $? -ne 0 ]; then
         echo "(info) updating git:$repo to v$version"
@@ -151,10 +152,6 @@ function update_link() {
 }
 
 # [MAIN]
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    bash scripts/setup-linux.sh
-fi
-
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # neovim install
     dl_git "neovim/neovim" "nvim-macos-arm64.tar.gz"
@@ -186,7 +183,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         nvm alias default node # upgrade default
         node -v
     fi
-    HOMEBREW_PKGS=(ripgrep fzf font-fira-code-nerd-font)
+    HOMEBREW_PKGS=(ripgrep fzf)
     for pkg in "${HOMEBREW_PKGS[@]}"; do
         if [ ! brew list --versions $pkg &> /dev/null ] || [ ! brew list --versions --cask $pkg &> /dev/null ]; then
             echo "(info) Installing $pkg via Homebrew"
@@ -195,24 +192,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
             echo "(info) $pkg is already installed"
         fi
     done
-
-    # alacritty
-    REPO="alacritty/alacritty"
-    git_tag $REPO
-    check_cache $REPO $VERSION
-    if [ $? -ne 0 ]; then
-        echo "(info) updating git:$REPO to v$VERSION"
-        DL_URL="https://github.com/$REPO/releases/download/v$VERSION/Alacritty-v$VERSION.dmg"
-        DMG_PATH="/tmp/Alacritty.dmg"
-        curl -Lo $DMG_PATH $DL_URL
-        if [ $? -ne 0 ]; then
-            echo "(error) failed to download $DL_URL"
-            exit 1
-        else
-            install_dmg $DMG_PATH
-            # update_link alacritty /Applications/Alacritty.app/Contents/MacOS/alacritty $HOME/.local/bin/alacritty
-        fi
-    fi
 fi
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # neovim install
@@ -232,6 +211,23 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         update_link nvim $DEPS_DIR/nvim/nvim.appimage $HOME/.local/bin/nvim
     fi
 
+    # ghostty install
+    dl_git "pkgforge-dev/ghostty-appimage" "Ghostty-{version}-x86_64.Appimage"
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+    if [ -n "$DL_PATH" ]; then
+        echo "(info) extracted $DL_PATH to $DEPS_DIR"
+        if [ -d $DEPS_DIR/ghostty ]; then
+            rm -rf $DEPS_DIR/ghostty
+        fi
+        mkdir -p $DEPS_DIR/ghostty
+        mv $DL_PATH $DEPS_DIR/ghostty/ghostty.appimage
+        chmod u+x $DEPS_DIR/ghostty/ghostty.appimage
+        mkdir -p $HOME/.local/bin
+        update_link ghostty $DEPS_DIR/ghostty/ghostty.appimage $HOME/.local/bin/ghostty
+    fi
+
     # npm/node installation
     dl_git_file "nvm-sh/nvm" "install.sh"
     if [ $? -ne 0 ]; then
@@ -245,4 +241,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         nvm alias default node # upgrade default
         node -v
     fi
+
+    # other setups
+    bash scripts/setup-linux.sh
 fi

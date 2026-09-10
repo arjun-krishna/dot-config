@@ -51,16 +51,12 @@ update_config() {
 }
 
 link_config nvim $(pwd)/nvim $HOME/.config/nvim
-link_config doom $(pwd)/doom $HOME/.config/doom
-link_config tmux $(pwd)/tmux $HOME/.config/tmux
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    link_config alacritty $(pwd)/alacritty/osx $HOME/.config/alacritty
     mkdir -p "$HOME/Library/Application Support/sioyek"
     link_config sioyek $(pwd)/sioyek/keys_user.config "$HOME/Library/Application Support/sioyek/keys_user.config"
 else
-    link_config alacritty $(pwd)/alacritty/linux $HOME/.config/alacritty
+    link_config sioyek $(pwd)/sioyek $HOME/.config/sioyek
 fi
-link_config wezterm $(pwd)/wezterm $HOME/.config/wezterm
 link_config zellij $(pwd)/zellij $HOME/.config/zellij
 
 update_config zshrc .zshrc $HOME/.zshrc
@@ -68,6 +64,7 @@ link_config zshrc_custom $(pwd)/.zshrc.custom $HOME/.zshrc.custom
 update_config zprofile .zprofile $HOME/.zprofile
 update_config p10k .p10k.zsh $HOME/.p10k.zsh
 
+update_config bashrc .bashrc $HOME/.bashrc
 update_config vimrc vim/.vimrc $HOME/.vimrc
 link_config vim $(pwd)/vim/.vim $HOME/.vim
 

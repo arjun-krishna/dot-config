@@ -67,6 +67,7 @@ if command -v keyd &> /dev/null; then
 else
     echo "∅ not found ... installing ..."
     # Repo: https://github.com/rvaiya/keyd
+    mkdir -p ../deps
     cd ../deps/ && \
     git clone https://github.com/rvaiya/keyd && \
     cd keyd && \
@@ -96,6 +97,10 @@ if command -v rustc cargo &> /dev/null; then
 else
     curl https://sh.rustup.rs -sSf | sh
 fi
+## source variables
+if [ -f "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi
 echo
 
 print_header "term-utils"
@@ -115,10 +120,72 @@ echo
 
 print_header "editor"
 cargo install --locked "tree-sitter-cli@0.25.10"
-sudo apt install texlive-science zathura -y
+sudo apt install texlive-science sioyek -y
 sudo apt install xterm xclip -y
 echo
 
-# libfuse (appimage)
+print_header "shell"
+sudo apt install zsh -y
+sudo chsh -s "$(command -v zsh)" # make zsh default shell
+
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    echo "∅ Oh My Zsh not found ... installing ..."
+    RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+    echo "✓ Oh My Zsh already installed"
+fi
+
+zsh_custom_dir="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+mkdir -p "$zsh_custom_dir/plugins" "$zsh_custom_dir/themes"
+
+if [ ! -d "$zsh_custom_dir/plugins/zsh-syntax-highlighting" ]; then
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
+        "$zsh_custom_dir/plugins/zsh-syntax-highlighting"
+else
+    echo "✓ zsh-syntax-highlighting already installed"
+fi
+
+if [ ! -d "$zsh_custom_dir/plugins/zsh-autosuggestions" ]; then
+    git clone https://github.com/zsh-users/zsh-autosuggestions \
+        "$zsh_custom_dir/plugins/zsh-autosuggestions"
+else
+    echo "✓ zsh-autosuggestions already installed"
+fi
+
+if [ ! -d "$zsh_custom_dir/themes/powerlevel10k" ]; then
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+        "$zsh_custom_dir/themes/powerlevel10k"
+else
+    echo "✓ powerlevel10k already installed"
+fi
+echo
+if ! command -v zellij; then
+    cargo install --locked zellij
+fi
+
+print_header "ghostty launcher"
+applications_dir="${XDG_DATA_HOME:-$HOME/.local/share}/applications"
+ghostty_desktop="$applications_dir/com.mitchellh.ghostty.desktop"
+mkdir -p "$applications_dir"
+cat > "$ghostty_desktop" <<EOF
+[Desktop Entry]
+Type=Application
+Name=Ghostty
+Comment=Fast, feature-rich terminal emulator
+Exec=$HOME/.local/bin/ghostty
+Icon=utilities-terminal
+Terminal=false
+Categories=System;TerminalEmulator;
+Keywords=terminal;shell;prompt;command;commandline;
+StartupNotify=true
+StartupWMClass=com.mitchellh.ghostty
+EOF
+chmod 644 "$ghostty_desktop"
+
+if command -v update-desktop-database &> /dev/null; then
+    update-desktop-database "$applications_dir"
+fi
+echo "✓ application launcher installed at $ghostty_desktop"
 
 echo "■ done"
