@@ -188,4 +188,25 @@ if command -v update-desktop-database &> /dev/null; then
 fi
 echo "✓ application launcher installed at $ghostty_desktop"
 
+print_header "chafa"
+if [ ! -d deps/chafa ]; then
+    git clone https://github.com/hpjansson/chafa.git deps/chafa
+else
+    cd deps/chafa && git pull && cd ../..
+fi
+sudo apt install -y \
+    autoconf \
+    automake \
+    libtool \
+    libfreetype6-dev \
+    libavif-dev \
+    libdeflate-dev \
+    libheif-dev \
+    libjpeg-dev \
+    libjxl-dev \
+    librsvg2-dev \
+    libtiff5-dev \
+    libwebp-dev
+cd deps/chafa && ./autogen.sh && make && sudo make install && sudo ldconfig && cd ../..
+
 echo "■ done"
