@@ -26,7 +26,8 @@ return {
     },
     window = {
         mappings = {
-            ["Y"] = function(state)
+            ["Y"] = {
+              function(state)
                 local node = state.tree:get_node()
                 if not node or not node.id then
                   vim.notify("No node selected.", vim.log.levels.WARN)
@@ -51,8 +52,6 @@ return {
                   { label = "Extension of the filename",  value = modify(filename, ':e') },
                 }
 
-                -- THE CHANGE IS ON THIS LINE:
-                -- Instead of vim.ui.select, we call the snacks picker directly.
                 vim.ui.select(choices, {
                   prompt = 'Choose to copy to clipboard:',
                   format_item = function(item)
@@ -69,7 +68,9 @@ return {
                   vim.fn.setreg('+', value_to_copy)
                   vim.notify('Copied to clipboard: ' .. value_to_copy)
                 end)
-            end,
+              end,
+              desc = "Copy path or filename to clipboard",
+            },
         }
     }
   },

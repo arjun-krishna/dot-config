@@ -14,13 +14,12 @@ return {
         allowed_dirs = { "~/workspace/" },
         suppressed_dirs = {"~/", "~/Downloads", "~/Documents", "/"},
         session_lens = {
-            picker = 'telescope',
+            picker = 'snacks',
             mappings = {
                 delete_session = { 'i', '<C-d>'},
                 alternate_session = { 'i', '<C-s>'},
                 copy_session = { 'i', '<C-y>'},
             },
-            load_on_setup = true,
         },
         git_use_branch_name = true,
         git_auto_restore_on_branch_change = true,

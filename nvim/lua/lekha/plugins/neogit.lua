@@ -9,8 +9,13 @@ return {
     -- For a custom log pager
     "m00qek/baleia.nvim",            -- optional
 
-    -- Only one of these is needed.
-    "nvim-telescope/telescope.nvim", -- optional
+    "folke/snacks.nvim",             -- optional picker
+  },
+  opts = {
+    integrations = {
+      telescope = false,
+      snacks = true,
+    },
   },
   cmd = "Neogit",
   keys = {

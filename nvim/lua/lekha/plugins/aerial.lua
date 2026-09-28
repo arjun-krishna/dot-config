@@ -5,9 +5,13 @@ return {
   dependencies = {
      'nvim-treesitter/nvim-treesitter',
      'nvim-tree/nvim-web-devicons',
+     'folke/snacks.nvim',
   },
   config = function()
     vim.keymap.set('n', '<leader>h', '<cmd>AerialToggle!<CR>', {desc = 'Aerial Toggle'})
+    vim.keymap.set('n', '<leader>fa', function()
+      require('aerial').snacks_picker()
+    end, { desc = 'Aerial symbols' })
     require('aerial').setup({
         backends = { 'treesitter', 'lsp', 'markdown', 'asciidoc', 'man' },
         layout = {
@@ -80,26 +84,5 @@ return {
         end,
     })
 
-    require('telescope').setup({
-        extensions = {
-        aerial = {
-          -- Set the width of the first two columns (the second
-          -- is relevant only when show_columns is set to 'both')
-          col1_width = 4,
-          col2_width = 30,
-          -- How to format the symbols
-          format_symbol = function(symbol_path, filetype)
-            if filetype == 'json' or filetype == 'yaml' then
-              return table.concat(symbol_path, '.')
-            else
-              return symbol_path[#symbol_path]
-            end
-          end,
-          -- Available modes: symbols, lines, both
-          show_columns = 'both',
-        },
-      },
-    })
-    require('telescope').load_extension('aerial')
   end,
 }

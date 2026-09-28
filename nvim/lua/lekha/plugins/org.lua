@@ -3,7 +3,7 @@ return {
     event = 'VeryLazy',
     ft = { 'org' },
     dependencies = {
-        'nvim-telescope/telescope.nvim',
+        'folke/snacks.nvim',
         'nvim-orgmode/telescope-orgmode.nvim',
         'nvim-orgmode/org-bullets.nvim',
         'Saghen/blink.cmp',
@@ -34,11 +34,11 @@ return {
           },
         })
 
-        local telescope = require('telescope')
-        telescope.load_extension('orgmode')
-        vim.keymap.set('n', '<leader>r', telescope.extensions.orgmode.refile_heading)
-        vim.keymap.set('n', '<leader>fh', telescope.extensions.orgmode.search_headings)
-        vim.keymap.set('n', '<leader>li', telescope.extensions.orgmode.insert_link)
+        local org_picker = require('telescope-orgmode')
+        org_picker.setup({ adapter = 'snacks' })
+        vim.keymap.set('n', '<leader>r', org_picker.refile_heading, { desc = 'Org refile' })
+        vim.keymap.set('n', '<leader>fh', org_picker.search_headings, { desc = 'Org headlines' })
+        vim.keymap.set('n', '<leader>li', org_picker.insert_link, { desc = 'Org insert link' })
 
         local org_roam = require('org-roam')
         org_roam.setup({
