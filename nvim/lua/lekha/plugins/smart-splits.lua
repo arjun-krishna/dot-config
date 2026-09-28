@@ -19,19 +19,4 @@ return {
     vim.keymap.set('n', '<leader><leader>k', ss.swap_buf_up, { desc = "Swap buffer up" })
     vim.keymap.set('n', '<leader><leader>l', ss.swap_buf_right, { desc = "Swap buffer right" })
   end,
-  -- cmd = {
-  --   "TmuxNavigateLeft",
-  --   "TmuxNavigateDown",
-  --   "TmuxNavigateUp",
-  --   "TmuxNavigateRight",
-  --   "TmuxNavigatePrevious",
-  --   "TmuxNavigatorProcessList",
-  -- },
-  -- keys = {
-  --   { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-  --   { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-  --   { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-  --   { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-  --   { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-  -- },
 }
