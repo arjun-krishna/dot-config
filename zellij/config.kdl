@@ -6,6 +6,14 @@ mouse_mode true
 keybinds {
     locked {
         bind "Ctrl q" { SwitchToMode "Normal"; }
+
+        // Keep split navigation inside Neovim while Zellij is locked.
+        // Ctrl-w + direction uses Neovim's native window navigation, bypassing
+        // smart-splits' Zellij integration at the outer window edge.
+        bind "Ctrl h" { Write 23 104; }
+        bind "Ctrl j" { Write 23 106; }
+        bind "Ctrl k" { Write 23 107; }
+        bind "Ctrl l" { Write 23 108; }
     }
     shared_except "locked" {
         bind "Ctrl q" { SwitchToMode "Locked"; }
