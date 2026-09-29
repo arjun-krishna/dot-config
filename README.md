@@ -50,7 +50,7 @@ sudo apt install libncurses-dev libevent-dev
 
 ## Terminal Utilities
 
-- [Zellij](https://zellij.dev/): terminal multiplexer used with WezTerm.
+- [Zellij](https://zellij.dev/): terminal multiplexer
 
 - [ripgrep](https://github.com/BurntSushi/ripgrep): used by the Snacks picker in nvim for fast file and text searches,
 ```bash
