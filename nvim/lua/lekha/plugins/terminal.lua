@@ -7,13 +7,19 @@ return {
       vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("force", { silent = true }, opts or {}))
     end
 
-    local function open_terminal()
-      vim.cmd("botright 20new")
+    local function open_terminal(split_command)
+      vim.cmd(split_command)
       vim.cmd.terminal()
       vim.cmd.startinsert()
     end
 
-    map("n", "<C-`>", open_terminal, { desc = "Open terminal split" })
+    map("n", "<C-`>", function()
+      open_terminal("botright 20new")
+    end, { desc = "Open terminal below" })
+
+    map("n", "<C-'>", function()
+      open_terminal("botright vnew")
+    end, { desc = "Open terminal right" })
 
     -- Leave terminal mode without first sending Escape to the running program.
     map("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
