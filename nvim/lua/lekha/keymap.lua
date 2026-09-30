@@ -17,7 +17,6 @@ vim.keymap.set("v", "<leader>y", "\"+y", { desc = "Yank" })
 vim.keymap.set("n", "<leader>Y", "\"+y", { desc = "Yank" })
 vim.keymap.set("v", "<leader>Y", "\"+y", { desc = "Yank" })
 
--- TODO: swap out with toggleterm functions
 vim.keymap.set("n", "<leader>sT", function()
     local file_dir = vim.fn.expand("%:p:h")
     local height = math.floor(vim.o.lines * 0.2)
