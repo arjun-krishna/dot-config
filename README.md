@@ -136,28 +136,14 @@ cargo install --locked "tree-sitter-cli@0.25.10"
 sudo apt install texlive-science
 ```
 
-## Zathura
+## Sioyek
 
+Linux
 ```bash
-sudo apt install zathura
+sudo apt install sioyek
 ```
 
+Mac
 ```
-1. `brew install dbus` or "reinstall"
-2. add export DBUS_SESSION_BUS_ADDRESS='unix:path='$DBUS_LAUNCHD_SESSION_BUS_SOCKET to .zshrc
-3. Run brew services start dbus
-
-Install Zathura
-# unlink installed zathura and girara
-brew unlink girara
-brew unlink zathura
-
-# install HEAD
-brew install girara
-brew uninstall zathura-pdf-poppler
-brew uninstall zathura
-brew install zathura --with-synctex
-brew install zathura-pdf-poppler
-mkdir -p $(brew --prefix zathura)/lib/zathura
-ln -s $(brew --prefix zathura-pdf-poppler)/libpdf-poppler.dylib $(brew --prefix zathura)/lib/zathura/libpdf-poppler.dylib
+brew install --cask sioyek
 ```

@@ -35,18 +35,19 @@ return {
       function()
         Snacks.picker.buffers({
           current = false,
-          hidden = true,
+          hidden = false,
           unloaded = true,
           sort_lastused = true,
           win = {
             input = {
               keys = {
-                ["<c-d>"] = { "bufdelete", mode = { "n", "i" } },
+                ["<c-x>"] = { "bufdelete", mode = { "n", "i" } },
+                ["dd"] = { "bufdelete", mode = "n" },
               },
             },
             list = {
               keys = {
-                ["<c-d>"] = "bufdelete",
+                ["<c-x>"] = "bufdelete",
                 ["dd"] = "bufdelete",
               },
             },
