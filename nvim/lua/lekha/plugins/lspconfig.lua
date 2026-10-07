@@ -34,7 +34,8 @@ return {
         })
         vim.lsp.enable('harper')
 
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {buffer=bufnr})
+        vim.keymap.set('n', 'gd', Snacks.picker.lsp_definitions, { desc = 'LSP definitions' })
+        vim.keymap.set('n', 'gr', Snacks.picker.lsp_references, { desc = 'LSP references' })
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, {buffer=bufnr})
         vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, {buffer=bufnr})
         vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, {buffer=bufnr})
