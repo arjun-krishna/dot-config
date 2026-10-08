@@ -1,0 +1,141 @@
+diff --git a/src/main.rs b/src/main.rs
+index 4888019..89e1506 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -5,7 +5,7 @@ use std::str::FromStr;
+ 
+ struct State {
+     permissions_granted: bool,
+-    current_term_command: Option<String>,
++    current_client: Option<ClientInfo>,
+     command_queue: VecDeque<Command>,
+ 
+     // Configuration
+@@ -52,7 +52,7 @@ impl ZellijPlugin for State {
+     fn update(&mut self, event: Event) -> bool {
+         match event {
+             Event::ListClients(list) => {
+-                self.current_term_command = term_command_from_client_list(list);
++                self.current_client = list.into_iter().find(|client| client.is_current_client);
+ 
+                 if !self.command_queue.is_empty() {
+                     let command = self.command_queue.pop_front().unwrap();
+@@ -85,7 +85,7 @@ impl Default for State {
+     fn default() -> Self {
+         Self {
+             permissions_granted: false,
+-            current_term_command: None,
++            current_client: None,
+             command_queue: VecDeque::new(),
+ 
+             move_mod: vec![Mod::Ctrl],
+@@ -102,8 +102,10 @@ impl State {
+     }
+ 
+     fn execute_command(&mut self, command: Command) {
+-        if self.current_pane_is_vim() {
+-            write_chars(&self.command_to_keybind(&command));
++        if let Some(pane_id) = self.current_vim_pane_id() {
++            // Focus may change after ListClients was sampled (eg. smart-splits
++            // leaving Neovim). Never inject a pending key into the new pane.
++            write_chars_to_pane_id(&self.command_to_keybind(&command), pane_id);
+             return;
+         }
+ 
+@@ -116,13 +118,15 @@ impl State {
+         }
+     }
+ 
+-    fn current_pane_is_vim(&self) -> bool {
+-        if let Some(current_command) = &self.current_term_command {
+-            if current_command == "nvim" || current_command == "vim" {
+-                return true;
+-            }
++    fn current_vim_pane_id(&self) -> Option<PaneId> {
++        let client = self.current_client.as_ref()?;
++        let command = client.running_command.split(' ').next()?;
++        let command = command.split('/').next_back()?;
++        if command == "nvim" || command == "vim" {
++            Some(client.pane_id)
++        } else {
++            None
+         }
+-        false
+     }
+ 
+     fn parse_configuration(&mut self, configuration: BTreeMap<String, String>) {
+@@ -170,17 +174,6 @@ impl State {
+     }
+ }
+ 
+-fn term_command_from_client_list(clients: Vec<ClientInfo>) -> Option<String> {
+-    for c in clients {
+-        if c.is_current_client {
+-            let command = c.running_command.split(' ').next()?;
+-            let command = command.split('/').next_back()?;
+-            return Some(command.to_string());
+-        }
+-    }
+-    None
+-}
+-
+ fn mod_to_kitty_protocol(modifier: &Mod) -> u8 {
+     match modifier {
+         Mod::Shift => 1,
+@@ -288,3 +281,56 @@ fn parse_command(pipe_message: PipeMessage) -> Option<Command> {
+         _ => None,
+     }
+ }
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++
++    // Zellij supplies this import in WASM. Native tests only inspect routing
++    // state and must never invoke the host API.
++    #[cfg(not(target_family = "wasm"))]
++    #[no_mangle]
++    pub extern "C" fn host_run_plugin_command() {
++        panic!("unexpected Zellij host API call in a native test");
++    }
++
++    fn focused_client(pane_id: u32, command: &str) -> ClientInfo {
++        ClientInfo {
++            client_id: 1,
++            pane_id: PaneId::Terminal(pane_id),
++            running_command: command.to_string(),
++            is_current_client: true,
++        }
++    }
++
++    #[test]
++    fn pending_key_retains_detected_vim_pane_when_focus_changes() {
++        let mut state = State::default();
++        state.current_client = Some(focused_client(7, "/usr/bin/nvim file.txt"));
++        let pending_target = state.current_vim_pane_id().unwrap();
++
++        // A subsequent client snapshot sees the shell after Neovim moves focus.
++        state.current_client = Some(focused_client(9, "zsh"));
++        assert_eq!(pending_target, PaneId::Terminal(7));
++        assert_eq!(state.current_vim_pane_id(), None);
++    }
++
++    #[test]
++    fn vim_detection_preserves_the_pane_id() {
++        for command in ["nvim", "vim", "/usr/bin/vim file.txt"] {
++            let mut state = State::default();
++            state.current_client = Some(focused_client(42, command));
++            assert_eq!(state.current_vim_pane_id(), Some(PaneId::Terminal(42)));
++        }
++    }
++
++    #[test]
++    fn missing_client_or_non_vim_command_never_receives_injected_keys() {
++        let mut state = State::default();
++        assert_eq!(state.current_vim_pane_id(), None);
++        for command in ["zsh", "bash", "N/A", "", "nvim-other"] {
++            state.current_client = Some(focused_client(9, command));
++            assert_eq!(state.current_vim_pane_id(), None);
++        }
++    }
++}

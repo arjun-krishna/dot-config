@@ -51,6 +51,7 @@ sudo apt install libncurses-dev libevent-dev
 ## Terminal Utilities
 
 - [Zellij](https://zellij.dev/): terminal multiplexer
+  - Run `bash zellij/install.sh` to build the locally patched Vim navigator
 
 - [ripgrep](https://github.com/BurntSushi/ripgrep): used by the Snacks picker in nvim for fast file and text searches,
 ```bash

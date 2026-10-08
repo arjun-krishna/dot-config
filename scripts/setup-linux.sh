@@ -163,6 +163,7 @@ echo
 if ! command -v zellij; then
     cargo install --locked zellij
 fi
+bash "$(dirname -- "${BASH_SOURCE[0]}")/../zellij/install.sh"
 
 print_header "ghostty launcher"
 applications_dir="${XDG_DATA_HOME:-$HOME/.local/share}/applications"
