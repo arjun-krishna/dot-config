@@ -134,7 +134,7 @@ cargo install --locked "tree-sitter-cli@0.25.10"
 ## TexLive
 
 ```bash
-sudo apt install texlive-science
+sudo apt install texlive-science latexmk
 ```
 
 ## Sioyek

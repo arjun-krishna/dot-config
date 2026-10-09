@@ -120,7 +120,16 @@ echo
 
 print_header "editor"
 cargo install --locked "tree-sitter-cli@0.25.10"
-sudo apt install texlive-science sioyek -y
+sudo apt install -y \
+    texlive-science \
+    texlive-latex-recommended \
+    texlive-latex-extra \
+    texlive-science \recommended
+    texlive-fonts-recommended \
+    texlive-fonts-extra \
+    texlive-extra-utils \
+    latexmk \
+    sioyek
 sudo apt install xterm xclip -y
 echo
 
