@@ -1,1 +1,3 @@
 # theme = GitHub Dark High Contrast
+cursor-style = block
+cursor-style-blink = true
